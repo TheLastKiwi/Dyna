@@ -71,7 +71,8 @@ public class DataCollector {
                 //Byte 9/14 for unit of measurement
                 //kg -> 1,1
                 //lb -> -1 0
-                TimestampedWeight reading = new TimestampedWeight(cstu(data[10]) * 256 + cstu(data[11]));
+//                TimestampedWeight reading = new TimestampedWeight(cstu(data[10]) * 256 + cstu(data[11]));
+                TimestampedWeight reading = new TimestampedWeight( (((int)data[10] & 0xff) << 8) | data[10 + 1] & 0xff);
                 callback.accept(reading);
             }
         }

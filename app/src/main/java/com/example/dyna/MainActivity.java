@@ -35,31 +35,39 @@ public class MainActivity extends AppCompatActivity {
                 // Handle the Bluetooth enable request result
                 if (result.getResultCode() != RESULT_OK) {
                     // Bluetooth was not enabled
-                    //Prompt to enable bluetooth
-                    //("Bluetooth not enabled");
+                    // Prompt to enable bluetooth
+                    // ("Bluetooth not enabled");
                 }
             });
 
+    ArrayList<Entry> entries = new ArrayList<>();
+    int counter = 0;
     Consumer<TimestampedWeight> callback = tsw -> {
         long now = System.currentTimeMillis();
 
         timestampedWeights.add(tsw);
-
+        entries.add(new Entry(counter++, timestampedWeights.get(timestampedWeights.size() - 1).weight)
+        );
         while (now - timestampedWeights.get(0).timestamp > timeLimit) {
             timestampedWeights.remove(0);
+            entries.remove(0);
         }
 
+        displayChart();
+    };
+
+    public void displayChart(){
         LineData lineData;
         LineDataSet lineDataSet;
-        ArrayList<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < timestampedWeights.size(); i++) {
-            entries.add(new Entry(i, timestampedWeights.get(i).weight));
-        }
-        lineDataSet = new LineDataSet(entries, "");
+
+//        for (int i = 0; i < timestampedWeights.size(); i++) {
+//            entries.add(new Entry(i, timestampedWeights.get(i).weight));
+//        }
+        lineDataSet = new LineDataSet(entries,null);
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
         runOnUiThread(() -> lineChart.invalidate());
-    };
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
