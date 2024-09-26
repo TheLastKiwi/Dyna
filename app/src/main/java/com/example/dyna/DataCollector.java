@@ -28,6 +28,7 @@ public class DataCollector {
 
     public DataCollector(BluetoothManager bluetoothManager, Consumer<TimestampedWeight> callback) {
         this.bluetoothManager = bluetoothManager;
+        this.bluetoothAdapter = bluetoothManager.getAdapter();
         this.callback = callback;
     }
 
@@ -42,9 +43,9 @@ public class DataCollector {
         collectingData = true;
         settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(); //Low latency required or 70% of packets drop
         filters = new ArrayList<>(Collections.singletonList(new ScanFilter.Builder().setDeviceName("IF_B7").build())); //IF_B7 is for WH-C06
-        bluetoothAdapter = bluetoothManager.getAdapter();
 
         bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
+//        bluetoothLeScanner.startScan(null, settings,scanCallback);
         bluetoothLeScanner.startScan(filters, settings, scanCallback);
     }
     public void startReadingBTConnData(){

@@ -9,7 +9,7 @@
         android:layout_width="224dp"
         android:layout_height="63dp"
         android:text="Start"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="349dp" />
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="334dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

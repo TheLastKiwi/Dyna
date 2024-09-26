@@ -6,27 +6,10 @@
     android:padding="16dp">
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/btnLiveData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Scanning" />
-
-    <Button
-        android:id="@+id/stopButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop Scanning" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
-        android:layout_width="match_parent"
-        android:layout_height="226dp" />
-
-    <TextView
-        android:id="@+id/bluetoothDataTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bluetooth Data Here" />
+        android:text="Live Data View" />
 
 
 </LinearLayout>
