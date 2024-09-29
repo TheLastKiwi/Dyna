@@ -11,5 +11,11 @@
         android:layout_height="wrap_content"
         android:text="Live Data View" />
 
+    <Button
+        android:id="@+id/btnRepeater"
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:text="Repeater" />
+
 
 </LinearLayout>

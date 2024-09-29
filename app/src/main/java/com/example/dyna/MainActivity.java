@@ -20,12 +20,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button startButton = findViewById(R.id.btnLiveData);
-
+        Button repeaterButton = findViewById(R.id.btnRepeater);
 
 
         // Button to start scanning
         startButton.setOnClickListener(view -> {
             Intent intent = new Intent(this,LiveDataView.class);
+            startActivity(intent);
+        });
+
+        repeaterButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RepeatersSettings.class);
             startActivity(intent);
         });
 

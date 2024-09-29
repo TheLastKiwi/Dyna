@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -23,13 +24,14 @@ public class LiveDataView extends AppCompatActivity {
 
     Session session;
     LineChart lineChart;
-    int timeLimit = 60000;
+    int timeLimit = 30000;
     DataCollector dc;
     Button ldvStartButton;
     Button ldvStopButton;
 
     Consumer<TimestampedWeight> callback = tsw -> {
         session.addWeight(tsw);
+        updateStats();
         displayChart();
     };
     @Override
@@ -58,6 +60,11 @@ public class LiveDataView extends AppCompatActivity {
                 dc.startScan(deviceName);
             }
         });
+        ldvStopButton.setOnClickListener(view -> {
+            Log.d("stop", "scan stopped");
+            dc.stopScanning();
+
+        });
     }
     private final ActivityResultLauncher<Intent> bluetoothActivityResultLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -69,25 +76,30 @@ public class LiveDataView extends AppCompatActivity {
                         // ("Bluetooth not enabled");
                     }
                 });
+    public void updateStats(){
+        TextView maxWeight = findViewById(R.id.txtMax);
+        TextView avgWeight = findViewById(R.id.txtAvg);
+        maxWeight.setText(String.valueOf(session.currentMax));
+        avgWeight.setText(String.valueOf(session.currentAvg));
 
+    }
     int startIndex = 0;
+    ArrayList<Entry> entries = new ArrayList<>();
     public void displayChart(){
         LineData lineData;
         LineDataSet lineDataSet;
-        ArrayList<Entry> entries = new ArrayList<>();
 
         long now = System.currentTimeMillis();
 
-        for(int i = startIndex; i < session.weights.size() -1; i++){
-            if(now - session.weights.get(i).timestamp < timeLimit){
-                startIndex = i;
-                break;
-            }
+        while(now - session.weights.get(startIndex).timestamp > timeLimit){
+            entries.remove(0);
+            startIndex++;
         }
-        long startTime = session.weights.get(startIndex).timestamp;
-        for(int i = startIndex; i < session.weights.size(); i++){
-            entries.add(new Entry((float) (session.weights.get(i).timestamp - startTime) / 1000, (float)session.weights.get(i).weight/100));
-        }
+
+        long startTime = session.weights.get(0).timestamp;
+        TimestampedWeight latest = session.weights.get(session.weights.size() - 1);
+        entries.add(new Entry((float) (latest.timestamp - startTime) / 1000, (float)latest.weight/100));
+
         lineDataSet = new LineDataSet(entries,null);
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);

@@ -8,9 +8,13 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -45,7 +49,6 @@ public class DataCollector {
         filters = new ArrayList<>(Collections.singletonList(new ScanFilter.Builder().setDeviceName("IF_B7").build())); //IF_B7 is for WH-C06
 
         bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
-//        bluetoothLeScanner.startScan(null, settings,scanCallback);
         bluetoothLeScanner.startScan(filters, settings, scanCallback);
     }
     public void startReadingBTConnData(){
@@ -66,19 +69,22 @@ public class DataCollector {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             if (result.getScanRecord() != null && collectingData) {
-                Log.d("Data", result.getScanRecord().toString());
+//                Log.d("Data", result.getScanRecord().toString());
                 byte[] data = result.getScanRecord().getManufacturerSpecificData(256);
                 //byte 10 * 256 + unsigned byte 11 = weight
                 //Byte 9/14 for unit of measurement
                 //kg -> 1,1
                 //lb -> -1 0
-//                TimestampedWeight reading = new TimestampedWeight(cstu(data[10]) * 256 + cstu(data[11]));
-                TimestampedWeight reading = new TimestampedWeight( (((int)data[10] & 0xff) << 8) | data[10 + 1] & 0xff);
+                Log.d("Data",Arrays.toString(data));
+//                TimestampedWeight reading = new TimestampedWeight());
+                TimestampedWeight reading = new TimestampedWeight(cstu(data[10]) * 256 + cstu(data[11]));
                 callback.accept(reading);
             }
         }
     };
+    @SuppressLint("MissingPermission")
     public void stopScanning(){
         collectingData = false;
+        bluetoothLeScanner.stopScan(scanCallback);
     }
 }
