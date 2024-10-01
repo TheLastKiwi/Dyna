@@ -27,7 +27,6 @@ public class BTManager extends AppCompatActivity {
         bleScanner = btMgr.getAdapter().getBluetoothLeScanner();
     }
 
-
     private final ActivityResultLauncher<Intent> bluetoothActivityResultLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -56,17 +55,18 @@ public class BTManager extends AppCompatActivity {
 
         bleScanner.startScan(filters, settings, scanCallback);
     }
+    @SuppressLint("MissingPermission")
     public void stopBLEScan(ScanCallback scanCallback){
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
         bleScanner.stopScan(scanCallback);
     }
 

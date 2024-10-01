@@ -19,4 +19,5 @@
     <string name="title_activity_endurance_settings">EnduranceSettings</string>
     <string name="title_activity_repeaters_settings">RepeatersSettings</string>
     <string name="title_activity_peak_load_settings">PeakLoadSettings</string>
+    <string name="title_activity_live_data_view">LiveDataView</string>
 </resources>

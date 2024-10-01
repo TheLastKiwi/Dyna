@@ -74,27 +74,6 @@
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/txtCountdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="@+id/txtPullRest"
-        app:layout_constraintHorizontal_bias="0.578"
-        app:layout_constraintStart_toStartOf="@+id/txtPullRest"
-        app:layout_constraintTop_toBottomOf="@+id/txtPullRest" />
-
-    <TextView
-        android:id="@+id/txtPullRest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Pull:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lineChartLiveData" />
-
-    <TextView
         android:id="@+id/txtCurrentLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,20 +93,6 @@
         app:layout_constraintStart_toEndOf="@+id/txtCurrentLabel"
         app:layout_constraintTop_toTopOf="@+id/txtCurrentLabel" />
 
-    <TextView
-        android:id="@+id/txtSetLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set:"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="345dp" />
 
-    <TextView
-        android:id="@+id/txtSetNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="345dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

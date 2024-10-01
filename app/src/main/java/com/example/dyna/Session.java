@@ -3,7 +3,9 @@ package com.example.dyna;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-enum SessionType {
+enum SessionType implements Serializable{
+    //I could over-engineer this and have subclasses of session for each type to hold
+    //only their own data. Maybe in the future I'll do that
     LIVE_DATA,
     PEAK_LOAD,
     ENDURANCE,
@@ -45,6 +47,10 @@ public class Session implements Serializable {
         sessionMax = Math.max(sessionMax, currentMax);
         weightSum += timestampedWeight.weight;
         currentAvg = weightSum / weights.size();
+    }
+    public int getLatest(){
+        if(weights.isEmpty()) return 0;
+        return weights.get(weights.size()-1).weight;
     }
 }
 

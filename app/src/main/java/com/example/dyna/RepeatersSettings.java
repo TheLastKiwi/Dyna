@@ -11,7 +11,6 @@ import android.widget.NumberPicker;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceFragmentCompat;
 
 import java.lang.reflect.Field;
@@ -22,7 +21,7 @@ public class RepeatersSettings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.repeaters);
+        setContentView(R.layout.repeaters_settings);
 //        if (savedInstanceState == null) {
 //            getSupportFragmentManager()
 //                    .beginTransaction()
@@ -66,6 +65,12 @@ public class RepeatersSettings extends AppCompatActivity {
         setOptions(findViewById(R.id.npPause), timeOptionsArray);
         setOptions(findViewById(R.id.npCountdown), timeOptionsArray);
 
+        ((NumberPicker) findViewById(R.id.npSets)).setValue(3);
+        ((NumberPicker) findViewById(R.id.npReps)).setValue(3);
+        ((NumberPicker) findViewById(R.id.npWork)).setValue(6);
+        ((NumberPicker) findViewById(R.id.npRest)).setValue(5);
+        ((NumberPicker) findViewById(R.id.npPause)).setValue(10);
+        ((NumberPicker) findViewById(R.id.npCountdown)).setValue(3);
 
         Switch switchPlot = findViewById(R.id.switchPlot);
         switchPlot.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -85,7 +90,7 @@ public class RepeatersSettings extends AppCompatActivity {
         //on click -> load settings
 
         findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
-            Intent intent = new Intent(this, LiveDataView.class);
+            Intent intent = new Intent(this, RepeaterLiveData.class);
             Session session = createSession();
             intent.putExtra("session",session);
             startActivity(intent);

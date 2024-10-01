@@ -1,6 +1,5 @@
 package com.example.dyna;
 
-import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Button to start scanning
         startButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this,LiveDataView.class);
+            Intent intent = new Intent(this, LiveDataView.class);
             startActivity(intent);
         });
 
