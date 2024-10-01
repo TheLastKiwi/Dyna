@@ -192,6 +192,7 @@
                 android:focusable="auto" />
         </LinearLayout>
 
+<!--        <androidx.appcompat.widget.SwitchCompat-->
         <Switch
             android:id="@+id/switchSound"
             android:layout_width="123dp"
@@ -228,6 +229,7 @@
             android:layout_height="137dp"
             android:orientation="vertical">
 
+<!--            <androidx.appcompat.widget.SwitchCompat-->
             <Switch
                 android:id="@+id/switchPlot"
                 android:layout_width="wrap_content"

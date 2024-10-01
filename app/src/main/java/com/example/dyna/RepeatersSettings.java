@@ -11,6 +11,7 @@ import android.widget.NumberPicker;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceFragmentCompat;
 
 import java.lang.reflect.Field;
@@ -44,6 +45,7 @@ public class RepeatersSettings extends AppCompatActivity {
         setOptions(findViewById(R.id.npPlotMax), numberOptions.toArray(new String[0]));
         ((NumberPicker)findViewById(R.id.npPlotMin)).setValue(14);
         ((NumberPicker)findViewById(R.id.npPlotMax)).setValue(84);
+
         //Work time
         ArrayList<String> timeOptions = new ArrayList<>();
         for (int i = 1; i <= 120; i++) {
@@ -82,16 +84,31 @@ public class RepeatersSettings extends AppCompatActivity {
 
         //on click -> load settings
 
-
         findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
-            Intent intent = new Intent(this, RepeatersSettings.class);
+            Intent intent = new Intent(this, LiveDataView.class);
+            Session session = createSession();
+            intent.putExtra("session",session);
             startActivity(intent);
         });
         findViewById(R.id.btnRepSave).setOnClickListener(view -> {
-            Intent intent = new Intent(this, RepeatersSettings.class);
-            startActivity(intent);
-        });
 
+        });
+    }
+
+    public Session createSession() {
+        Session session = new Session();
+        session.sessionType = SessionType.REPEATER;
+        session.numSets = ((NumberPicker) findViewById(R.id.npSets)).getValue() + 1;
+        session.numReps = ((NumberPicker) findViewById(R.id.npReps)).getValue() + 1;
+        session.workTime = ((NumberPicker) findViewById(R.id.npWork)).getValue() + 1;
+        session.restTime = ((NumberPicker) findViewById(R.id.npRest)).getValue() + 1;
+        session.pauseTime = ((NumberPicker) findViewById(R.id.npPause)).getValue() + 1;
+        session.countdown = ((NumberPicker) findViewById(R.id.npCountdown)).getValue() + 1;
+        session.sound = ((Switch) findViewById(R.id.switchSound)).isChecked();
+        session.plotTarget = ((Switch) findViewById(R.id.switchPlot)).isChecked();
+        session.plotMin = ((NumberPicker) findViewById(R.id.npPlotMin)).getValue() + 1;
+        session.plotMax = ((NumberPicker) findViewById(R.id.npPlotMax)).getValue() + 1;
+        return session;
     }
 
     public void setOptions(NumberPicker np, String[] options) {

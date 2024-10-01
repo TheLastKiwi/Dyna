@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -26,8 +26,6 @@ public class LiveDataView extends AppCompatActivity {
     LineChart lineChart;
     int timeLimit = 30000;
     DataCollector dc;
-    Button ldvStartButton;
-    Button ldvStopButton;
 
     Consumer<TimestampedWeight> callback = tsw -> {
         session.addWeight(tsw);
@@ -40,42 +38,29 @@ public class LiveDataView extends AppCompatActivity {
         setContentView(R.layout.live_data);
         // Initialize Bluetooth
         BluetoothManager bluetoothMgr = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-        ldvStartButton = findViewById(R.id.btnLdvStart);
-        ldvStopButton = findViewById(R.id.btnLdvStop);
-        lineChart = findViewById(R.id.lineChart);
+
+        lineChart = findViewById(R.id.lineChartLiveData);
         dc = new DataCollector(bluetoothMgr, callback);
 
-        //Get intent here to set session settings parameters
-        session = new Session();
-
-
-        ldvStartButton.setOnClickListener(view -> {
-            if (bluetoothMgr.getAdapter() == null || !bluetoothMgr.getAdapter().isEnabled()) {
-                // Launch the Bluetooth enable request
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                bluetoothActivityResultLauncher.launch(enableBtIntent);
-            } else {
-                Log.d("start", "scan starting");
-                String deviceName = "IF_B7";
-                dc.startScan(deviceName);
-            }
+        findViewById(R.id.btnLdvStart).setOnClickListener(view -> {
+            String deviceName = "IF_B7";
+            dc.startScan(deviceName);
         });
-        ldvStopButton.setOnClickListener(view -> {
+        findViewById(R.id.btnLdvStop).setOnClickListener(view -> {
             Log.d("stop", "scan stopped");
             dc.stopScanning();
 
         });
+
+        Intent intent = getIntent();
+        session = (Session) intent.getSerializableExtra("session");
+        if(session == null) session = new Session();
+        //If session plot target = true
+        //add lines on graph to show target zones
+
     }
-    private final ActivityResultLauncher<Intent> bluetoothActivityResultLauncher =
-        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    // Handle the Bluetooth enable request result
-                    if (result.getResultCode() != RESULT_OK) {
-                        // Bluetooth was not enabled
-                        // Prompt to enable bluetooth
-                        // ("Bluetooth not enabled");
-                    }
-                });
+
+
     public void updateStats(){
         TextView maxWeight = findViewById(R.id.txtMax);
         TextView avgWeight = findViewById(R.id.txtAvg);

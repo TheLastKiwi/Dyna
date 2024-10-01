@@ -1,5 +1,6 @@
 package com.example.dyna;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 enum SessionType {
@@ -9,7 +10,7 @@ enum SessionType {
     REPEATER,
     CRITICAL_FORCE
 }
-public class Session {
+public class Session implements Serializable {
     SessionType sessionType;
     List<TimestampedWeight> weights;
     int currentMax = 0;
@@ -17,27 +18,29 @@ public class Session {
     int currentAvg = 0;
     private int weightSum = 0;
 
-    int targetZoneMin;
-    int targetZoneMax;
-    boolean beepWhenExitingTargetZone;
-    int startCountdownTimer;
-
     int enduranceDuration;
-
-    int repeaterWorkTime;
-    int repeaterRestTime;
-    int numRepeaterSets;
-    int numRepeaterReps;
-    int pauseBetweenRepeaterSetsLength;
+    int numSets;
+    int numReps;
+    int workTime;
+    int restTime;
+    int pauseTime;
+    int countdown;
+    boolean plotTarget;
+    int plotMin;
+    int plotMax;
+    boolean sound;
 
 
     Session(){
         weights = new ArrayList<>();
     }
+    Session(SessionType type) {
+        this.sessionType = type;
+        weights = new ArrayList<>();
+    }
 
     public void addWeight(TimestampedWeight timestampedWeight){
         weights.add(timestampedWeight);
-
         currentMax = Math.max(currentMax, timestampedWeight.weight);
         sessionMax = Math.max(sessionMax, currentMax);
         weightSum += timestampedWeight.weight;

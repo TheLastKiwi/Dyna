@@ -25,40 +25,27 @@ public class DataCollector {
     //If direct BT, handshake and connect
     //If advertisement, filter by device name
 
-    BluetoothManager bluetoothManager;
-    private BluetoothAdapter bluetoothAdapter;
-    private BluetoothLeScanner bluetoothLeScanner;
     Consumer<TimestampedWeight> callback;
-
+    BTManager btManager;
     public DataCollector(BluetoothManager bluetoothManager, Consumer<TimestampedWeight> callback) {
-        this.bluetoothManager = bluetoothManager;
-        this.bluetoothAdapter = bluetoothManager.getAdapter();
+        btManager = new BTManager(bluetoothManager);
+        //LiveData view callback
         this.callback = callback;
     }
 
     boolean collectingData = false;
     private TimestampedWeight weight;
-    ScanSettings settings;
-    List<ScanFilter> filters;
+
 
     //ONLY WH-C06 devices named "IF_B7
-    @SuppressLint("MissingPermission")
-    public void startBLEScan() {
-        collectingData = true;
-        settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(); //Low latency required or 70% of packets drop
-        filters = new ArrayList<>(Collections.singletonList(new ScanFilter.Builder().setDeviceName("IF_B7").build())); //IF_B7 is for WH-C06
 
-        bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
-        bluetoothLeScanner.startScan(filters, settings, scanCallback);
-    }
-    public void startReadingBTConnData(){
 
-    }
     public void startScan(String deviceName){
         if("IF_B7".equals(deviceName)){
-            startBLEScan();
+            collectingData = true;
+            btManager.startBLEScan(scanCallback);
         } else {
-            startReadingBTConnData();
+            btManager.startReadingBTConnData();
         }
     }
     static int cstu(byte i) {
@@ -85,6 +72,7 @@ public class DataCollector {
     @SuppressLint("MissingPermission")
     public void stopScanning(){
         collectingData = false;
-        bluetoothLeScanner.stopScan(scanCallback);
+        btManager.stopBLEScan(scanCallback);
+
     }
 }

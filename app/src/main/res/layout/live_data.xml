@@ -7,7 +7,7 @@
 
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
+        android:id="@+id/lineChartLiveData"
         android:layout_width="match_parent"
         android:layout_height="226dp"
         android:layout_marginTop="16dp"
@@ -18,31 +18,30 @@
         android:id="@+id/btnLdvStart"
         android:layout_width="175dp"
         android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="28dp"
         android:text="Start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lineChart" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnLdvStop"
         android:layout_width="175dp"
         android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="28dp"
         android:text="Stop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lineChart" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
         android:text="Max:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLdvStart" />
+        tools:layout_editor_absoluteY="457dp" />
 
     <TextView
         android:id="@+id/txtMax"
@@ -50,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
@@ -57,7 +57,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="Avg:"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +69,65 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/txtCountdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/txtPullRest"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="@+id/txtPullRest"
+        app:layout_constraintTop_toBottomOf="@+id/txtPullRest" />
+
+    <TextView
+        android:id="@+id/txtPullRest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Pull:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lineChartLiveData" />
+
+    <TextView
+        android:id="@+id/txtCurrentLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Current:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lineChartLiveData" />
+
+    <TextView
+        android:id="@+id/txtCurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/txtCurrentLabel"
+        app:layout_constraintStart_toEndOf="@+id/txtCurrentLabel"
+        app:layout_constraintTop_toTopOf="@+id/txtCurrentLabel" />
+
+    <TextView
+        android:id="@+id/txtSetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set:"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="345dp" />
+
+    <TextView
+        android:id="@+id/txtSetNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="345dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
