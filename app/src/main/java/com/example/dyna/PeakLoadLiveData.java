@@ -15,15 +15,29 @@ import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class PeakLoadLiveData extends BaseLiveDataView {
 
+    Profile profile;
+    boolean isHistorical = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        EdgeToEdge.enable(this);
         setContentView(R.layout.peak_load_live_data);
         lineChart = findViewById(R.id.lineChartPeakData);
-        timeLimit = 5000;
+        isHistorical= getIntent().getBooleanExtra("historical",false);
+        if(isHistorical) {
+            timeLimit = session.getSesionLength();
+            displayChart();
+        } else {
+            session.sessionType=SessionType.PEAK_LOAD;
+            timeLimit = 5000;
+        }
+        //Probably add in base view
+        profile = (Profile)getIntent().getSerializableExtra("profile");
         initializeButtons();
     }
 
@@ -51,16 +65,33 @@ public class PeakLoadLiveData extends BaseLiveDataView {
         llPlotMax.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(llPlotMax);
-        super.displayChart();
+        if(isHistorical) {
+            super.displayHistoricalChart();
+        } else {
+            super.displayChart();
+        }
 
     }
     public void initializeButtons() {
-        findViewById(R.id.btnPeakStart).setOnClickListener(view -> {
-            dc.startCollecting();
-        });
-        findViewById(R.id.btnPeakStop).setOnClickListener(view -> {
-            Log.d("stop", "scan stopped");
-            dc.stopCollecting();
-        });
+        if(!getIntent().getBooleanExtra("historical",false)) {
+            findViewById(R.id.btnPeakStart).setOnClickListener(view -> {
+                dc.startCollecting();
+            });
+            findViewById(R.id.btnPeakStop).setOnClickListener(view -> {
+                Log.d("stop", "scan stopped");
+                dc.stopCollecting();
+            });
+            findViewById(R.id.btnPeakSave).setOnClickListener(view -> {
+                Log.d("Save", "Saving");
+                dc.stopCollecting();
+                FileManager fm = new FileManager(this);
+
+                session.name = "Peak " + System.currentTimeMillis()/1000;
+                fm.saveSession(session, profile);
+            });
+        }else {
+            //hide start, stop, save buttons
+            //show back/delete/export buttons
+        }
     }
 }

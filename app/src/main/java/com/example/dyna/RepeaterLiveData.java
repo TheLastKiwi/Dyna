@@ -38,13 +38,18 @@ public class RepeaterLiveData extends BaseLiveDataView {
     }
 
     public void initializeButtons() {
-        findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
-            timerTowerStart();
-        });
-        findViewById(R.id.btnRepeaterStop).setOnClickListener(view -> {
-            Log.d("stop", "scan stopped");
-            dc.stopCollecting();
-        });
+        if(!getIntent().getBooleanExtra("historical",false)) {
+            findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
+                timerTowerStart();
+            });
+            findViewById(R.id.btnRepeaterStop).setOnClickListener(view -> {
+                Log.d("stop", "scan stopped");
+                dc.stopCollecting();
+            });
+        } else {
+            //hide start and stop buttons
+            //show back/delete/export buttons
+        }
     }
 
     private void timerTowerStart(){

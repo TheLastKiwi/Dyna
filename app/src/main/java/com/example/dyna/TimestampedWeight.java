@@ -1,6 +1,8 @@
 package com.example.dyna;
 
-public class TimestampedWeight {
+import java.io.Serializable;
+
+public class TimestampedWeight implements Serializable {
     long timestamp;
     int weight;
     public TimestampedWeight(int w){

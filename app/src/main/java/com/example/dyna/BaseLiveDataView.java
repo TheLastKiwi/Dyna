@@ -21,7 +21,7 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
 
     Session session;
     LineChart lineChart;
-    int timeLimit = 30000;
+    long timeLimit = 30000;
     DataCollector dc;
 
     Consumer<TimestampedWeight> callback = tsw -> {
@@ -86,6 +86,20 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
         entries.add(new Entry((float) (latest.timestamp - startTime) / 1000, (float)latest.weight/100));
 
         lineDataSet = new LineDataSet(entries,null);
+        lineDataSet.setCircleRadius(2f);
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+        runOnUiThread(() -> lineChart.invalidate());
+    }
+    public void displayHistoricalChart(){
+        LineData lineData;
+        LineDataSet lineDataSet;
+        long startTime = session.weights.get(0).timestamp;
+        for(TimestampedWeight weight : session.weights){
+            entries.add(new Entry((float) (weight.timestamp - startTime) / 1000, (float)weight.weight/100));
+        }
+        lineDataSet = new LineDataSet(entries,null);
+        lineDataSet.setCircleRadius(2f);
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
         runOnUiThread(() -> lineChart.invalidate());

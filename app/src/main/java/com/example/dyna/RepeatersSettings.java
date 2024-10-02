@@ -93,6 +93,7 @@ public class RepeatersSettings extends AppCompatActivity {
             Intent intent = new Intent(this, RepeaterLiveData.class);
             Session session = createSession();
             intent.putExtra("session",session);
+            intent.putExtra("profile",getIntent().getSerializableExtra("profile"));
             startActivity(intent);
         });
         findViewById(R.id.btnRepSave).setOnClickListener(view -> {

@@ -15,6 +15,7 @@ enum SessionType implements Serializable{
 public class Session implements Serializable {
     SessionType sessionType;
     List<TimestampedWeight> weights;
+    String name;
     int sessionMax = 0;
     int currentAvg = 0;
     private int weightSum = 0;
@@ -49,6 +50,9 @@ public class Session implements Serializable {
     public int getLatest(){
         if(weights.isEmpty()) return 0;
         return weights.get(weights.size()-1).weight;
+    }
+    public long getSesionLength(){
+        return weights.get(weights.size() - 1).timestamp - weights.get(0).timestamp;
     }
 }
 

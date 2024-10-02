@@ -23,5 +23,11 @@
         android:layout_height="wrap_content"
         android:text="Peak Load" />
 
+    <Button
+        android:id="@+id/btnHistorical"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="View a session" />
+
 
 </LinearLayout>
