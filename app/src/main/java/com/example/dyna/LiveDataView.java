@@ -23,7 +23,7 @@ public class LiveDataView extends BaseLiveDataView {
 
     @Override
     public void updateStats(){
-        ((TextView)findViewById(R.id.txtMax)).setText(String.valueOf(session.currentMax));
+        ((TextView)findViewById(R.id.txtMax)).setText(String.valueOf(session.sessionMax));
         ((TextView)findViewById(R.id.txtAvg)).setText(String.valueOf(session.currentAvg));
         ((TextView)findViewById(R.id.txtCurrent)).setText(String.valueOf(session.getLatest()));
     }

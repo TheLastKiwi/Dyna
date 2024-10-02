@@ -18,20 +18,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button startButton = findViewById(R.id.btnLiveData);
-        Button repeaterButton = findViewById(R.id.btnRepeater);
-
-
         // Button to start scanning
-        startButton.setOnClickListener(view -> {
+        findViewById(R.id.btnLiveData).setOnClickListener(view -> {
             Intent intent = new Intent(this, LiveDataView.class);
             startActivity(intent);
         });
 
-        repeaterButton.setOnClickListener(view -> {
+        findViewById(R.id.btnRepeater).setOnClickListener(view -> {
             Intent intent = new Intent(this, RepeatersSettings.class);
             startActivity(intent);
         });
+
+        findViewById(R.id.btnPeakLoad).setOnClickListener(view -> {
+            Intent intent = new Intent(this, PeakLoadLiveData.class);
+            startActivity(intent);
+        });
+
 
     }
 

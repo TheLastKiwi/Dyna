@@ -20,15 +20,14 @@
         android:theme="@style/Theme.Dyna"
         tools:targetApi="31">
         <activity
+            android:name=".PeakLoadLiveData"
+            android:exported="false" />
+        <activity
             android:name=".LiveDataView"
             android:exported="false" />
         <activity
             android:name=".RepeaterLiveData"
             android:exported="false" />
-        <activity
-            android:name=".PeakLoadSettings"
-            android:exported="false"
-            android:label="@string/title_activity_peak_load_settings" />
         <activity
             android:name=".RepeatersSettings"
             android:exported="false"

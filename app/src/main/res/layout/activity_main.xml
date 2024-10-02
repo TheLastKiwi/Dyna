@@ -7,15 +7,21 @@
 
     <Button
         android:id="@+id/btnLiveData"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Live Data View" />
+        android:text="Live Data" />
 
     <Button
         android:id="@+id/btnRepeater"
-        android:layout_width="143dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Repeater" />
+
+    <Button
+        android:id="@+id/btnPeakLoad"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Peak Load" />
 
 
 </LinearLayout>

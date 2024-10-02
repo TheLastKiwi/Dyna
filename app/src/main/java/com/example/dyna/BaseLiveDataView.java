@@ -2,11 +2,14 @@ package com.example.dyna;
 
 import android.bluetooth.BluetoothManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -42,9 +45,27 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
             session = new Session();
         }
         dc = new DataCollector(bluetoothMgr, callback);
+
     }
 
+    public void setLineLimits(){
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.setAxisMaximum(session.plotMax + 10);
 
+        LimitLine llPlotMin = new LimitLine(session.plotMin, "Min"); // 10f is the Y value, "Limit" is the label
+        LimitLine llPlotMax = new LimitLine(session.plotMax, "Max"); // 10f is the Y value, "Limit" is the label
+
+        llPlotMin.setLineWidth(2f); // Set line width
+        llPlotMin.setLineColor(Color.GREEN); // Set line color
+        llPlotMin.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
+
+        llPlotMax.setLineWidth(2f); // Set line width
+        llPlotMax.setLineColor(Color.RED); // Set line color
+        llPlotMax.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
+
+        leftAxis.addLimitLine(llPlotMin);
+        leftAxis.addLimitLine(llPlotMax);
+    }
     public abstract void updateStats();
 
     int startIndex = 0;
