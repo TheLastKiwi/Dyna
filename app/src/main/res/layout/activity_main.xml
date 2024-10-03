@@ -1,33 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llNavigation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnLiveData"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Live Data" />
+
+        <Button
+            android:id="@+id/btnRepeater"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Repeater" />
+
+        <Button
+            android:id="@+id/btnPeakLoad"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Peak Load" />
+
+        <Button
+            android:id="@+id/btnHistorical"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="View a session" />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/btnLiveData"
-        android:layout_width="150dp"
+        android:id="@+id/btnProfile"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Live Data" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Swap Profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnRepeater"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/txtCurrentProfile"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Repeater" />
-
-    <Button
-        android:id="@+id/btnPeakLoad"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Peak Load" />
-
-    <Button
-        android:id="@+id/btnHistorical"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="View a session" />
-
-
-</LinearLayout>
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnProfile"
+        app:layout_constraintStart_toStartOf="@+id/btnProfile"
+        app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
+</androidx.constraintlayout.widget.ConstraintLayout>

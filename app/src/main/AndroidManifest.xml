@@ -20,7 +20,13 @@
         android:theme="@style/Theme.Dyna"
         tools:targetApi="31">
         <activity
-            android:name=".HistorcialSelection"
+            android:name=".CreateProfile"
+            android:exported="false" />
+        <activity
+            android:name=".SwapProfile"
+            android:exported="false" />
+        <activity
+            android:name=".HistoricalSelection"
             android:exported="false" />
         <activity
             android:name=".PeakLoadLiveData"

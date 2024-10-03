@@ -30,8 +30,8 @@ public class PeakLoadLiveData extends BaseLiveDataView {
         lineChart = findViewById(R.id.lineChartPeakData);
         isHistorical= getIntent().getBooleanExtra("historical",false);
         if(isHistorical) {
-            timeLimit = session.getSesionLength();
             displayChart();
+            updateStats();
         } else {
             session.sessionType=SessionType.PEAK_LOAD;
             timeLimit = 5000;

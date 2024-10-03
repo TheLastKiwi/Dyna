@@ -89,7 +89,7 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
         lineDataSet.setCircleRadius(2f);
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
-        runOnUiThread(() -> lineChart.invalidate());
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        runOnUiThread(() -> lineChart.invalidate());
     }
     public void displayHistoricalChart(){
         LineData lineData;

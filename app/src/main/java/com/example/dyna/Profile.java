@@ -8,5 +8,10 @@ public class Profile implements Serializable {
     // Other settings like dark/light mode etc
     public Profile(String name){
         this.name = name;
+        this.displayName = name;
+    }
+    public void changeName(String newName){
+        this.displayName = newName;
+        //Have calling class save to file
     }
 }
