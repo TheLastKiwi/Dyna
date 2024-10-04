@@ -17,18 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class SwapProfile extends AppCompatActivity {
-
+    // This whole activity will probably eventually become a dropdown on the main page
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_swap_profile);
-//        EdgeToEdge.enable(this);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
         addButtons();
         findViewById(R.id.btnCreateProfile).setOnClickListener(v ->{
             Intent intent = new Intent(this, CreateProfile.class);

@@ -24,387 +24,421 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="724dp"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnRepeaterStart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView11">
 
-        <com.google.android.material.card.MaterialCardView
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/com.google.android.material.textview.MaterialTextView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:textSize="20sp"
-                    android:text="Preset" />
-
-                <Spinner
-                    android:id="@+id/spinRepeaterPreset"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:minWidth="100dp"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnRepSave"
-                    android:layout_width="120dp"
-                    android:layout_height="51dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:text="Save" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="187dp"
-                android:layout_height="58dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/com.google.android.material.textview.MaterialTextView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:text="Sets"
-                    android:textSize="20sp" />
-
-                <NumberPicker
-                    android:id="@+id/npSets"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="8dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/com.google.android.material.textview.MaterialTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Set"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="0dp"
-                    android:layout_height="22dp"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.409"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView2">
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/com.google.android.material.textview.MaterialTextView4"
-                        android:layout_width="0dp"
+                        android:id="@+id/com.google.android.material.textview.MaterialTextView12"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Reps"
-                        android:textSize="20sp"
-                        android:textAlignment="center" />
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:text="Preset"
+                        android:textSize="20sp" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/com.google.android.material.textview.MaterialTextView5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Work"
-                        android:textSize="20sp"
-                        android:textAlignment="center" />
+                    <Spinner
+                        android:id="@+id/spinRepeaterPreset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="51dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:minWidth="100dp"
+                        android:textSize="28sp" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/com.google.android.material.textview.MaterialTextView6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Rest"
-                        android:textSize="20sp"
-                        android:textAlignment="center" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRepSave"
+                        android:layout_width="120dp"
+                        android:layout_height="51dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:text="Save" />
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
 
                 <LinearLayout
-                    android:id="@+id/ll2"
-                    android:layout_width="0dp"
+                    android:layout_width="187dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/com.google.android.material.textview.MaterialTextView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:text="Sets"
+                        android:textSize="20sp" />
+
+                    <NumberPicker
+                        android:id="@+id/npSets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="65dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:scaleX="1.7"
+                        android:scaleY="1.7" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
+                <!--TODO: SET CONSISTENT SPINNER SIZE. MAYBE APP SETTING-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+                    android:layout_marginBottom="8dp">
 
-                    <NumberPicker
-                        android:id="@+id/npReps"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/com.google.android.material.textview.MaterialTextView2"
                         android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:text="Set"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <NumberPicker
-                        android:id="@+id/npWork"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="0dp"
+                        android:layout_height="22dp"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.409"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView2">
 
-                    <NumberPicker
-                        android:id="@+id/npRest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-                </LinearLayout>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/com.google.android.material.textview.MaterialTextView4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Reps"
+                            android:textAlignment="center"
+                            android:textSize="20sp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/com.google.android.material.textview.MaterialTextView5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Work"
+                            android:textAlignment="center"
+                            android:textSize="20sp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/com.google.android.material.textview.MaterialTextView6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rest"
+                            android:textAlignment="center"
+                            android:textSize="20sp" />
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="273dp"
-                android:layout_height="72dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                    <LinearLayout
+                        android:id="@+id/ll2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/com.google.android.material.textview.MaterialTextView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:text="Pause between sets"
-                    android:textSize="20sp" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center|clip_horizontal|clip_vertical"
+                            android:layout_weight="1"
+                            android:clipChildren="true">
 
-                <NumberPicker
-                    android:id="@+id/npPause"
-                    android:layout_width="125dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1"
-                    android:focusable="auto" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                            <NumberPicker
+                                android:id="@+id/npReps"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleX="1.5"
+                                android:scaleY="1.5" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--        <androidx.appcompat.widget.SwitchCompat-->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center|clip_horizontal|clip_vertical"
+                            android:layout_weight="1"
+                            android:clipChildren="false">
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switchSound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="4dp"
-                android:text="Sound
-"
-                android:textSize="20sp" />
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+                            <NumberPicker
+                                android:id="@+id/npWork"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleX="1.75"
+                                android:scaleY="1.75" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="wrap_content"
-                android:layout_height="64dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center|clip_horizontal|clip_vertical"
+                            android:layout_weight="1"
+                            android:clipChildren="true">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/com.google.android.material.textview.MaterialTextView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Countdown before work"
-                    android:textSize="20sp" />
+                            <NumberPicker
+                                android:id="@+id/npRest"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleX="2"
+                                android:scaleY="2" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <NumberPicker
-                    android:id="@+id/npCountdown"
-                    android:layout_width="125dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1"
-                    android:focusable="auto" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
 
-                <!--            <androidx.appcompat.widget.SwitchCompat-->
+                <LinearLayout
+                    android:layout_width="273dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/com.google.android.material.textview.MaterialTextView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="0dp"
+                        android:text="Pause between sets"
+                        android:textSize="20sp" />
+
+                    <NumberPicker
+                        android:id="@+id/npPause"
+                        android:layout_width="125dp"
+                        android:layout_height="65dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:focusable="auto"
+                        android:scaleX="1.7"
+                        android:scaleY="1.7" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--        <androidx.appcompat.widget.SwitchCompat-->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
+
                 <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchPlot"
+                    android:id="@+id/switchSound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="4dp"
-                    android:text="Plot target  "
+                    android:text="Sound
+    "
                     android:textSize="20sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
 
                 <LinearLayout
-                    android:id="@+id/llPlot"
-                    android:layout_width="match_parent"
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    app:flow_verticalAlign="center">
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/com.google.android.material.textview.MaterialTextView13"
-                        android:layout_width="44dp"
+                        android:id="@+id/com.google.android.material.textview.MaterialTextView8"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Min:"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                        android:layout_gravity="center"
+                        android:text="Countdown before work"
+                        android:textSize="20sp" />
 
                     <NumberPicker
-                        android:id="@+id/npPlotMin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:id="@+id/npCountdown"
+                        android:layout_width="125dp"
+                        android:layout_height="65dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:focusable="auto"
-                        app:layout_constraintBottom_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView8"
-                        app:layout_constraintStart_toEndOf="@+id/com.google.android.material.textview.MaterialTextView8"
-                        app:layout_constraintTop_toTopOf="@+id/com.google.android.material.textview.MaterialTextView8" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/com.google.android.material.textview.MaterialTextView14"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="40dp"
-                        android:layout_weight="1"
-                        android:text="Max:"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-                    <NumberPicker
-                        android:id="@+id/npPlotMax"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:focusable="auto"
-                        app:layout_constraintBottom_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView8"
-                        app:layout_constraintStart_toEndOf="@+id/com.google.android.material.textview.MaterialTextView8"
-                        app:layout_constraintTop_toTopOf="@+id/com.google.android.material.textview.MaterialTextView8" />
+                        android:scaleX="1.7"
+                        android:scaleY="1.7" />
                 </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--            <androidx.appcompat.widget.SwitchCompat-->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchPlot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Plot target  "
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:id="@+id/llPlot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:flow_verticalAlign="center">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/com.google.android.material.textview.MaterialTextView13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Min:"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+                        <NumberPicker
+                            android:id="@+id/npPlotMin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:focusable="auto"
+                            android:scaleX="1.7"
+                            android:scaleY="1.7"
+                            app:layout_constraintBottom_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView8"
+                            app:layout_constraintStart_toEndOf="@+id/com.google.android.material.textview.MaterialTextView8"
+                            app:layout_constraintTop_toTopOf="@+id/com.google.android.material.textview.MaterialTextView8" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/com.google.android.material.textview.MaterialTextView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="40dp"
+                            android:layout_weight="1"
+                            android:text="Max:"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+                        <NumberPicker
+                            android:id="@+id/npPlotMax"
+                            android:layout_width="wrap_content"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:focusable="auto"
+                            android:scaleX="1.7"
+                            android:scaleY="1.7"
+                            app:layout_constraintBottom_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView8"
+                            app:layout_constraintStart_toEndOf="@+id/com.google.android.material.textview.MaterialTextView8"
+                            app:layout_constraintTop_toTopOf="@+id/com.google.android.material.textview.MaterialTextView8" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

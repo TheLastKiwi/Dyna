@@ -53,10 +53,10 @@ public class RepeatersSettings extends AppCompatActivity {
         for (int i = 1; i <= 120; i++) {
             String text = "";
             if (i >= 60) {
-                text += (i / 60) + " min";
+                text += (i / 60) + "m";
             }
             if (i % 60 > 0) {
-                text += " " + i % 60 + " sec";
+                text += " " + i % 60 + "s";
             }
             timeOptions.add(text);
         }
@@ -67,7 +67,6 @@ public class RepeatersSettings extends AppCompatActivity {
         setOptions(findViewById(R.id.npRest), timeOptionsArray);
         setOptions(findViewById(R.id.npPause), timeOptionsArray);
         setOptions(findViewById(R.id.npCountdown), timeOptionsArray);
-
         ((NumberPicker) findViewById(R.id.npSets)).setValue(3);
         ((NumberPicker) findViewById(R.id.npReps)).setValue(3);
         ((NumberPicker) findViewById(R.id.npWork)).setValue(6);
@@ -76,6 +75,7 @@ public class RepeatersSettings extends AppCompatActivity {
         ((NumberPicker) findViewById(R.id.npCountdown)).setValue(3);
 
         SwitchMaterial switchPlot = findViewById(R.id.switchPlot);
+        switchPlot.setChecked(true);
         switchPlot.setOnCheckedChangeListener((buttonView, isChecked) -> {
 //            switchPlot.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
             findViewById(R.id.llPlot).setVisibility(isChecked?View.VISIBLE:View.GONE);
@@ -85,6 +85,8 @@ public class RepeatersSettings extends AppCompatActivity {
 //            switchSound.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
 
         });
+
+
         //Preset
         //Load presets from disk
         //get all names
@@ -96,7 +98,6 @@ public class RepeatersSettings extends AppCompatActivity {
             Intent intent = new Intent(this, RepeaterLiveData.class);
             Session session = createSession();
             intent.putExtra("session",session);
-            intent.putExtra("profile",getIntent().getSerializableExtra("profile"));
             startActivity(intent);
         });
         findViewById(R.id.btnRepSave).setOnClickListener(view -> {

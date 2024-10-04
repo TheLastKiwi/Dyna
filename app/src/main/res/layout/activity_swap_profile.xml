@@ -19,12 +19,15 @@
 
     <LinearLayout
         android:id="@+id/llProfiles"
-        android:layout_width="410dp"
-        android:layout_height="621dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateProfile"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
-        tools:layout_editor_absoluteX="0dp"></LinearLayout>
+        tools:layout_editor_absoluteX="0dp">
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnCreateProfile"

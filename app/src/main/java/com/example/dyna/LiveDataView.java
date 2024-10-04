@@ -2,13 +2,8 @@ package com.example.dyna;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.textview.MaterialTextView;
 
 public class LiveDataView extends BaseLiveDataView {
 
@@ -23,9 +18,9 @@ public class LiveDataView extends BaseLiveDataView {
 
     @Override
     public void updateStats(){
-        ((TextView)findViewById(R.id.txtMax)).setText(String.valueOf(session.sessionMax));
-        ((TextView)findViewById(R.id.txtAvg)).setText(String.valueOf(session.currentAvg));
-        ((TextView)findViewById(R.id.txtCurrent)).setText(String.valueOf(session.getLatest()));
+        ((MaterialTextView)findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.sessionMax));
+        ((MaterialTextView)findViewById(R.id.txtAvg)).setText(String.valueOf(session.currentAvg));
+        ((MaterialTextView)findViewById(R.id.txtCurrent)).setText(String.valueOf(session.getLatest()));
     }
 
     public void initializeButtons() {

@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="match_parent"
+    tools:context=".CriticalForceLiveData">
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChartLiveData"
+        android:id="@+id/lineChartRepeater"
         android:layout_width="match_parent"
         android:layout_height="226dp"
         android:layout_marginTop="16dp"
@@ -15,7 +15,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/btnLdvStart"
+        android:id="@+id/btnCriticalStart"
         android:layout_width="175dp"
         android:layout_height="51dp"
         android:layout_marginStart="28dp"
@@ -25,7 +25,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnLdvStop"
+        android:id="@+id/btnCriticalSave"
+        android:layout_width="175dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="24dp"
+        android:text="Save"
+        app:layout_constraintBottom_toTopOf="@+id/btnCriticalStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnRepeaterStop"
         android:layout_width="175dp"
         android:layout_height="51dp"
         android:layout_marginEnd="28dp"
@@ -37,9 +47,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/lineChartLiveData"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.card.MaterialCardView
@@ -57,20 +67,34 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtCurrentLabel"
+                    android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current:"
-                    android:textSize="48sp" />
+                    android:text="Rep:"
+                    android:textSize="48sp"
+                    tools:layout_editor_absoluteX="28dp"
+                    tools:layout_editor_absoluteY="293dp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtCurrent"
+                    android:id="@+id/txtRepeaterRepNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8sp"
                     android:text="0"
-                    android:textSize="48sp" />
+                    android:textSize="48sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                    app:layout_constraintStart_toEndOf="@+id/textView16"
+                    app:layout_constraintTop_toTopOf="@+id/textView16"
+                    app:layout_constraintVertical_bias="0.0" />
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+>
+
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -88,54 +112,61 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Max:"
-                    android:textSize="48sp" />
+                    android:text="Weight:"
+                    android:textSize="48sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtPeakMax"
+                    android:id="@+id/txtRepeaterCurrent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="8sp"
                     android:text="0"
-                    android:textSize="48sp" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Avg:"
-                    android:textSize="48sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtAvg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="0"
-                    android:textSize="48sp" />
+                    android:textSize="48sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                    app:layout_constraintStart_toEndOf="@+id/textView9"
+                    app:layout_constraintTop_toTopOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="0.0" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/lineChartRepeater"
+        tools:layout_editor_absoluteX="0dp">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtPullRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Rest:"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineChartRepeater" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtCountdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8sp"
+            android:text="0"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPullRest"
+            app:layout_constraintStart_toEndOf="@+id/txtPullRest"
+            app:layout_constraintTop_toTopOf="@+id/txtPullRest" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class HistoricalSelection extends AppCompatActivity {
     FileManager fm;
-    Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +23,6 @@ public class HistoricalSelection extends AppCompatActivity {
 //            return insets;
 //        });
         fm = new FileManager(this);
-        Intent intent = getIntent();
-        profile = (Profile) intent.getSerializableExtra("profile");
         initializeButtons();
     }
 
@@ -46,8 +43,10 @@ public class HistoricalSelection extends AppCompatActivity {
         for (Session session : sessions) {
             Button button = getButton(session);
 
-            // Add the button to the layout
+            //TODO: Customize button style here
+
             buttonContainer.addView(button);
+
         }
 
     }
@@ -69,7 +68,6 @@ public class HistoricalSelection extends AppCompatActivity {
                     intent = new Intent(this, HistoricalSelection.class);
             }
             intent.putExtra("historical",true);
-            intent.putExtra("profile", profile);
             intent.putExtra("session", session);
             startActivity(intent);
         });
