@@ -14,6 +14,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import android.content.DialogInterface;
+import android.text.InputType;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
+
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -103,5 +109,40 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
         runOnUiThread(() -> lineChart.invalidate());
+    }
+
+    private void showFileNameDialog() {
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint("Enter session name");
+
+        // Build the dialog
+        new AlertDialog.Builder(this)
+                .setTitle("Save Session")
+                .setMessage("Please enter a name for the session")
+                .setView(input)
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Get the user input
+                        String fileName = input.getText().toString().trim();
+
+                        if (!fileName.isEmpty()) {
+                            // Handle the file saving process here
+                            saveFileWithName(fileName);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Session name cannot be empty", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void saveFileWithName(String fileName) {
+        // Implement your file saving logic here
+        FileManager fm = new FileManager(this);
+        fm.saveSession(session);
+        Toast.makeText(this, "File '" + fileName + "' saved", Toast.LENGTH_SHORT).show();
     }
 }

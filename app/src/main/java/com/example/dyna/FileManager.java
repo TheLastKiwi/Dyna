@@ -1,6 +1,7 @@
 package com.example.dyna;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,22 +17,24 @@ import java.util.Objects;
 
 public class FileManager {
     Context context;
+    Profile activeProfile;
     public FileManager(Context context){
         this.context = context;
+        activeProfile = getActiveProfile();
     }
 
     /* TODO: Probably don't need to pass in profile to all these things
         Can just read from settings to get active profile
     */
 
-    public void saveSession(Session s, Profile p){
+    public void saveSession(Session s){
         //
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
 
         try {
             // Create or get the profile directory
-            File profileDirectory = new File(context.getFilesDir(), p.name);
+            File profileDirectory = new File(context.getFilesDir(), activeProfile.name);
             if (!profileDirectory.exists()) {
                 profileDirectory.mkdirs();
             }
@@ -59,12 +62,12 @@ public class FileManager {
             }
         }
     }
-    public Session getSession(SessionType sessionType, Profile p, String name){
+    public Session getSession(SessionType sessionType, String name){
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         Session session = null;
         try {
-            File profileDirectory = new File(context.getFilesDir(), p.name);
+            File profileDirectory = new File(context.getFilesDir(), activeProfile.name);
             if (!profileDirectory.exists()) {
                 profileDirectory.mkdirs();
             }
@@ -93,10 +96,10 @@ public class FileManager {
         }
         return session;
     }
-    public ArrayList<Session> getAllSessions(Context context, SessionType sessionType, Profile p) {
+    public ArrayList<Session> getAllSessions(Context context, SessionType sessionType) {
 
         // Get the directory (if it exists) or create it
-        File profileDirectory = new File(context.getFilesDir(), p.name);
+        File profileDirectory = new File(context.getFilesDir(), activeProfile.name);
         if (!profileDirectory.exists()) {
             profileDirectory.mkdirs();
         }
@@ -216,6 +219,11 @@ public class FileManager {
             }
         }
         return profiles;
+    }
+
+    public Profile getActiveProfile(){
+        String activeUser = context.getSharedPreferences("Settings", Context.MODE_PRIVATE).getString("ActiveUser","Default");
+        return getProfile(activeUser);
     }
 
 }

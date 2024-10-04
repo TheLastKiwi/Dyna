@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     String deviceName;
     //Create an ActivityResultLauncher for Bluetooth enable request
-    Profile activeProfile;
+
     FileManager fm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,31 +33,27 @@ public class MainActivity extends AppCompatActivity {
             activeUser = "Default";
             Profile defaultProfile = new Profile("Default");
             fm.saveProfile(defaultProfile);
-        }
-        activeProfile = fm.getProfile(activeUser);
+        } 
+        Profile activeProfile = fm.getProfile(activeUser);
 
         ((TextView)findViewById(R.id.txtCurrentProfile)).setText(activeProfile.displayName);
         // Button to start scanning
         findViewById(R.id.btnLiveData).setOnClickListener(view -> {
             Intent intent = new Intent(this, LiveDataView.class);
-            intent.putExtra("profile", activeProfile);
             startActivity(intent);
         });
 
         findViewById(R.id.btnRepeater).setOnClickListener(view -> {
             Intent intent = new Intent(this, RepeatersSettings.class);
-            intent.putExtra("profile", activeProfile);
             startActivity(intent);
         });
 
         findViewById(R.id.btnPeakLoad).setOnClickListener(view -> {
             Intent intent = new Intent(this, PeakLoadLiveData.class);
-            intent.putExtra("profile", activeProfile);
             startActivity(intent);
         });
         findViewById(R.id.btnHistorical).setOnClickListener(view -> {
             Intent intent = new Intent(this, HistoricalSelection.class);
-            intent.putExtra("profile", activeProfile);
             startActivity(intent);
         });
         findViewById(R.id.btnProfile).setOnClickListener(view -> {

@@ -41,7 +41,7 @@ public class HistoricalSelection extends AppCompatActivity {
     public void addButtonsToLayout(SessionType sessionType) {
         LinearLayout buttonContainer = findViewById(R.id.llSessions);
         buttonContainer.removeAllViews();
-        ArrayList<Session> sessions = fm.getAllSessions(this, sessionType, profile);
+        ArrayList<Session> sessions = fm.getAllSessions(this, sessionType);
         // Iterate over the ArrayList and create a button for each item
         for (Session session : sessions) {
             Button button = getButton(session);

@@ -13,6 +13,9 @@ import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -72,14 +75,14 @@ public class RepeatersSettings extends AppCompatActivity {
         ((NumberPicker) findViewById(R.id.npPause)).setValue(10);
         ((NumberPicker) findViewById(R.id.npCountdown)).setValue(3);
 
-        Switch switchPlot = findViewById(R.id.switchPlot);
+        SwitchMaterial switchPlot = findViewById(R.id.switchPlot);
         switchPlot.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            switchPlot.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
-            findViewById(R.id.llPlot).setVisibility(isChecked?View.VISIBLE:View.INVISIBLE);
+//            switchPlot.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
+            findViewById(R.id.llPlot).setVisibility(isChecked?View.VISIBLE:View.GONE);
         });
-        Switch switchSound = findViewById(R.id.switchSound);
+        SwitchMaterial switchSound = findViewById(R.id.switchSound);
         switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            switchSound.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
+//            switchSound.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
 
         });
         //Preset
@@ -110,8 +113,8 @@ public class RepeatersSettings extends AppCompatActivity {
         session.restTime = ((NumberPicker) findViewById(R.id.npRest)).getValue() + 1;
         session.pauseTime = ((NumberPicker) findViewById(R.id.npPause)).getValue() + 1;
         session.countdown = ((NumberPicker) findViewById(R.id.npCountdown)).getValue() + 1;
-        session.sound = ((Switch) findViewById(R.id.switchSound)).isChecked();
-        session.plotTarget = ((Switch) findViewById(R.id.switchPlot)).isChecked();
+        session.sound = ((SwitchMaterial) findViewById(R.id.switchSound)).isChecked();
+        session.plotTarget = ((SwitchMaterial) findViewById(R.id.switchPlot)).isChecked();
         session.plotMin = ((NumberPicker) findViewById(R.id.npPlotMin)).getValue() + 1;
         session.plotMax = ((NumberPicker) findViewById(R.id.npPlotMax)).getValue() + 1;
         return session;

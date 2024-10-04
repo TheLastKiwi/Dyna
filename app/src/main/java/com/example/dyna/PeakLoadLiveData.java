@@ -20,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 
 public class PeakLoadLiveData extends BaseLiveDataView {
 
-    Profile profile;
     boolean isHistorical = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class PeakLoadLiveData extends BaseLiveDataView {
             timeLimit = 5000;
         }
         //Probably add in base view
-        profile = (Profile)getIntent().getSerializableExtra("profile");
         initializeButtons();
     }
 
@@ -87,7 +85,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
                 FileManager fm = new FileManager(this);
 
                 session.name = "Peak " + System.currentTimeMillis()/1000;
-                fm.saveSession(session, profile);
+                fm.saveSession(session);
             });
         }else {
             //hide start, stop, save buttons
