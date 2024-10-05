@@ -1,30 +1,32 @@
 package com.example.dyna;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.Switch;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-public class RepeatersSettings extends AppCompatActivity {
+public class RepeatersSettings extends Fragment {
 
+    View view;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.repeaters_settings);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
+
+        view = inflater.inflate(R.layout.repeaters_settings,container, false);
 //        if (savedInstanceState == null) {
 //            getSupportFragmentManager()
 //                    .beginTransaction()
@@ -41,12 +43,12 @@ public class RepeatersSettings extends AppCompatActivity {
             numberOptions.add(String.valueOf(i));
         }
 
-        setOptions(findViewById(R.id.npReps), numberOptions.toArray(new String[0]));
-        setOptions(findViewById(R.id.npSets), numberOptions.toArray(new String[0]));
-        setOptions(findViewById(R.id.npPlotMin), numberOptions.toArray(new String[0]));
-        setOptions(findViewById(R.id.npPlotMax), numberOptions.toArray(new String[0]));
-        ((NumberPicker)findViewById(R.id.npPlotMin)).setValue(14);
-        ((NumberPicker)findViewById(R.id.npPlotMax)).setValue(84);
+        setOptions(view.findViewById(R.id.npReps), numberOptions.toArray(new String[0]));
+        setOptions(view.findViewById(R.id.npSets), numberOptions.toArray(new String[0]));
+        setOptions(view.findViewById(R.id.npPlotMin), numberOptions.toArray(new String[0]));
+        setOptions(view.findViewById(R.id.npPlotMax), numberOptions.toArray(new String[0]));
+        ((NumberPicker)view.findViewById(R.id.npPlotMin)).setValue(14);
+        ((NumberPicker)view.findViewById(R.id.npPlotMax)).setValue(84);
 
         //Work time
         ArrayList<String> timeOptions = new ArrayList<>();
@@ -63,24 +65,24 @@ public class RepeatersSettings extends AppCompatActivity {
 
         String[] timeOptionsArray = timeOptions.toArray(new String[0]);
 
-        setOptions(findViewById(R.id.npWork), timeOptionsArray);
-        setOptions(findViewById(R.id.npRest), timeOptionsArray);
-        setOptions(findViewById(R.id.npPause), timeOptionsArray);
-        setOptions(findViewById(R.id.npCountdown), timeOptionsArray);
-        ((NumberPicker) findViewById(R.id.npSets)).setValue(3);
-        ((NumberPicker) findViewById(R.id.npReps)).setValue(3);
-        ((NumberPicker) findViewById(R.id.npWork)).setValue(6);
-        ((NumberPicker) findViewById(R.id.npRest)).setValue(5);
-        ((NumberPicker) findViewById(R.id.npPause)).setValue(10);
-        ((NumberPicker) findViewById(R.id.npCountdown)).setValue(3);
+        setOptions(view.findViewById(R.id.npWork), timeOptionsArray);
+        setOptions(view.findViewById(R.id.npRest), timeOptionsArray);
+        setOptions(view.findViewById(R.id.npPause), timeOptionsArray);
+        setOptions(view.findViewById(R.id.npCountdown), timeOptionsArray);
+        ((NumberPicker) view.findViewById(R.id.npSets)).setValue(3);
+        ((NumberPicker) view.findViewById(R.id.npReps)).setValue(3);
+        ((NumberPicker) view.findViewById(R.id.npWork)).setValue(6);
+        ((NumberPicker) view.findViewById(R.id.npRest)).setValue(5);
+        ((NumberPicker) view.findViewById(R.id.npPause)).setValue(10);
+        ((NumberPicker) view.findViewById(R.id.npCountdown)).setValue(3);
 
-        SwitchMaterial switchPlot = findViewById(R.id.switchPlot);
+        SwitchMaterial switchPlot = view.findViewById(R.id.switchPlot);
         switchPlot.setChecked(true);
         switchPlot.setOnCheckedChangeListener((buttonView, isChecked) -> {
 //            switchPlot.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
-            findViewById(R.id.llPlot).setVisibility(isChecked?View.VISIBLE:View.GONE);
+            view.findViewById(R.id.llPlot).setVisibility(isChecked?View.VISIBLE:View.GONE);
         });
-        SwitchMaterial switchSound = findViewById(R.id.switchSound);
+        SwitchMaterial switchSound = view.findViewById(R.id.switchSound);
         switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
 //            switchSound.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
 
@@ -93,31 +95,35 @@ public class RepeatersSettings extends AppCompatActivity {
         //populate list
 
         //on click -> load settings
-
-        findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
-            Intent intent = new Intent(this, RepeaterLiveData.class);
-            Session session = createSession();
-            intent.putExtra("session",session);
-            startActivity(intent);
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+        view.findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("session", createSession());
+            navController.navigate(R.id.action_repeatersSettings_to_repeaterLiveData, bundle);
+//            Intent intent = new Intent(this, RepeaterLiveData.class);
+//            Session session = createSession();
+//            intent.putExtra("session",session);
+//            startActivity(intent);
         });
-        findViewById(R.id.btnRepSave).setOnClickListener(view -> {
+        view.findViewById(R.id.btnRepPresetSave).setOnClickListener(view -> {
 
         });
+        return view;
     }
 
     public Session createSession() {
         Session session = new Session();
         session.sessionType = SessionType.REPEATER;
-        session.numSets = ((NumberPicker) findViewById(R.id.npSets)).getValue() + 1;
-        session.numReps = ((NumberPicker) findViewById(R.id.npReps)).getValue() + 1;
-        session.workTime = ((NumberPicker) findViewById(R.id.npWork)).getValue() + 1;
-        session.restTime = ((NumberPicker) findViewById(R.id.npRest)).getValue() + 1;
-        session.pauseTime = ((NumberPicker) findViewById(R.id.npPause)).getValue() + 1;
-        session.countdown = ((NumberPicker) findViewById(R.id.npCountdown)).getValue() + 1;
-        session.sound = ((SwitchMaterial) findViewById(R.id.switchSound)).isChecked();
-        session.plotTarget = ((SwitchMaterial) findViewById(R.id.switchPlot)).isChecked();
-        session.plotMin = ((NumberPicker) findViewById(R.id.npPlotMin)).getValue() + 1;
-        session.plotMax = ((NumberPicker) findViewById(R.id.npPlotMax)).getValue() + 1;
+        session.numSets = ((NumberPicker) view.findViewById(R.id.npSets)).getValue() + 1;
+        session.numReps = ((NumberPicker) view.findViewById(R.id.npReps)).getValue() + 1;
+        session.workTime = ((NumberPicker) view.findViewById(R.id.npWork)).getValue() + 1;
+        session.restTime = ((NumberPicker) view.findViewById(R.id.npRest)).getValue() + 1;
+        session.pauseTime = ((NumberPicker) view.findViewById(R.id.npPause)).getValue() + 1;
+        session.countdown = ((NumberPicker) view.findViewById(R.id.npCountdown)).getValue() + 1;
+        session.sound = ((SwitchMaterial) view.findViewById(R.id.switchSound)).isChecked();
+        session.plotTarget = ((SwitchMaterial) view.findViewById(R.id.switchPlot)).isChecked();
+        session.plotMin = ((NumberPicker) view.findViewById(R.id.npPlotMin)).getValue() + 1;
+        session.plotMax = ((NumberPicker) view.findViewById(R.id.npPlotMax)).getValue() + 1;
         return session;
     }
 

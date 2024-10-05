@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeScreen">
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.example.dyna.HomeScreen"
+        android:label="HomeScreen" >
+        <action
+            android:id="@+id/action_homeScreen_to_swapProfile"
+            app:destination="@id/swapProfile" />
+        <action
+            android:id="@+id/action_homeScreen_to_repeatersSettings"
+            app:destination="@id/repeatersSettings" />
+        <action
+            android:id="@+id/action_homeScreen_to_peakLoadLiveData"
+            app:destination="@id/peakLoadLiveData" />
+        <action
+            android:id="@+id/action_homeScreen_to_liveDataView"
+            app:destination="@id/liveDataView" />
+        <action
+            android:id="@+id/action_homeScreen_to_historicalSelection"
+            app:destination="@id/historicalSelection" />
+    </fragment>
+    <fragment
+        android:id="@+id/liveDataView"
+        android:name="com.example.dyna.LiveDataView"
+        android:label="LiveDataView" >
+        <action
+            android:id="@+id/action_liveDataView_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/repeatersSettings"
+        android:name="com.example.dyna.RepeatersSettings"
+        android:label="RepeatersSettings" >
+        <action
+            android:id="@+id/action_repeatersSettings_to_repeaterLiveData"
+            app:destination="@id/repeaterLiveData" />
+    </fragment>
+    <fragment
+        android:id="@+id/swapProfile"
+        android:name="com.example.dyna.SwapProfile"
+        android:label="activity_swap_profile"
+        tools:layout="@layout/activity_swap_profile" >
+        <action
+            android:id="@+id/action_swapProfile_to_createProfile"
+            app:destination="@id/createProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/peakLoadLiveData"
+        android:name="com.example.dyna.PeakLoadLiveData"
+        android:label="peak_load_live_data"
+        tools:layout="@layout/peak_load_live_data" >
+        <action
+            android:id="@+id/action_peakLoadLiveData_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/repeaterLiveData"
+        android:name="com.example.dyna.RepeaterLiveData"
+        android:label="repeater_live_data"
+        tools:layout="@layout/repeater_live_data" >
+        <action
+            android:id="@+id/action_repeaterLiveData_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/historicalSelection"
+        android:name="com.example.dyna.HistoricalSelection"
+        android:label="historcial_selection"
+        tools:layout="@layout/historcial_selection" >
+        <action
+            android:id="@+id/action_historicalSelection_to_repeaterLiveData"
+            app:destination="@id/repeaterLiveData" />
+        <action
+            android:id="@+id/action_historicalSelection_to_liveDataView"
+            app:destination="@id/liveDataView" />
+        <action
+            android:id="@+id/action_historicalSelection_to_peakLoadLiveData"
+            app:destination="@id/peakLoadLiveData" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfile"
+        android:name="com.example.dyna.CreateProfile"
+        android:label="activity_create_profile"
+        tools:layout="@layout/activity_create_profile" />
+</navigation>

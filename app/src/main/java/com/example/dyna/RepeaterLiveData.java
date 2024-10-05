@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.LimitLine;
@@ -16,33 +19,35 @@ public class RepeaterLiveData extends BaseLiveDataView {
     int countdownLeft = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.repeater_live_data);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
+        view = inflater.inflate(R.layout.repeater_live_data,container, false);
 
-        lineChart = findViewById(R.id.lineChartRepeater);
+
+        lineChart = view.findViewById(R.id.lineChartRepeater);
         initializeButtons();
-        timeLimit = session.workTime * 1000;
+        timeLimit = session.workTime * 1000L;
         if(session.plotTarget) {
             setLineLimits();
         }
+        return view;
     }
 
 
     @Override
     public void updateStats() {
-        ((TextView)findViewById(R.id.txtRepeaterCurrent)).setText(String.valueOf(session.getLatest()));
-        ((TextView)findViewById(R.id.txtRepeaterRepNum)).setText(String.valueOf(repNum));
-        ((TextView)findViewById(R.id.txtRepeaterSetNum)).setText(setNum + "/" + session.numSets);
-        ((TextView)findViewById(R.id.txtCountdown)).setText(String.valueOf(countdownLeft));
+        ((TextView)view.findViewById(R.id.txtRepeaterCurrent)).setText(String.valueOf(session.getLatest()));
+        ((TextView)view.findViewById(R.id.txtRepeaterRepNum)).setText(String.valueOf(repNum));
+        ((TextView)view.findViewById(R.id.txtRepeaterSetNum)).setText(setNum + "/" + session.numSets);
+        ((TextView)view.findViewById(R.id.txtCountdown)).setText(String.valueOf(countdownLeft));
     }
 
     public void initializeButtons() {
-        if(!getIntent().getBooleanExtra("historical",false)) {
-            findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
+        if(isHistorical) {
+            view.findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
                 timerTowerStart();
             });
-            findViewById(R.id.btnRepeaterStop).setOnClickListener(view -> {
+            view.findViewById(R.id.btnRepeaterStop).setOnClickListener(view -> {
                 Log.d("stop", "scan stopped");
                 dc.stopCollecting();
             });
@@ -104,7 +109,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
     public void startRepTimer(){
         Log.d("TIMER", "repTimer Started");
         dc.startCollecting();
-        ((TextView) findViewById(R.id.txtPullRest)).setText("Pull");
+        ((TextView) view.findViewById(R.id.txtPullRest)).setText("Pull");
         new CountDownTimer(session.workTime * 1000L, 1000) { // 10 seconds countdown, ticking every second
 
             public void onTick(long millisUntilFinished) {
@@ -117,7 +122,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
             public void onFinish() {
                 // Code to run when the timer finishes
                 Log.d("TIMER", "rep finished");
-                ((TextView) findViewById(R.id.txtPullRest)).setText("Rest");
+                ((TextView) view.findViewById(R.id.txtPullRest)).setText("Rest");
                 if(repNum < session.numReps) {
                     countdownLeft = session.restTime;
                     dc.stopCollecting();

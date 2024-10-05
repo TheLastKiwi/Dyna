@@ -5,56 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/llNavigation"
+    <Button
+        android:id="@+id/btnTempBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:text="TempBack"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/btnLiveData"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Live Data" />
-
-        <Button
-            android:id="@+id/btnRepeater"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Repeater" />
-
-        <Button
-            android:id="@+id/btnPeakLoad"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Peak Load" />
-
-        <Button
-            android:id="@+id/btnHistorical"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="View a session" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnProfile"
+        android:id="@+id/btnTmpProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="16dp"
-        android:text="Swap Profile"
+        android:text="TempProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtCurrentProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnProfile"
-        app:layout_constraintStart_toStartOf="@+id/btnProfile"
-        app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTempBack"
+        app:navGraph="@navigation/my_nav"
+        tools:layout_editor_absoluteX="1dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

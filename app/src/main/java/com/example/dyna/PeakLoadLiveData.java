@@ -3,6 +3,9 @@ package com.example.dyna;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -20,14 +23,15 @@ import java.time.format.DateTimeFormatter;
 
 public class PeakLoadLiveData extends BaseLiveDataView {
 
-    boolean isHistorical = false;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
+        view = inflater.inflate(R.layout.peak_load_live_data,container, false);
 //        EdgeToEdge.enable(this);
-        setContentView(R.layout.peak_load_live_data);
-        lineChart = findViewById(R.id.lineChartPeakData);
-        isHistorical= getIntent().getBooleanExtra("historical",false);
+
+        lineChart = view.findViewById(R.id.lineChartPeakData);
+        assert getArguments() != null;
+
         if(isHistorical) {
             displayChart();
             updateStats();
@@ -37,11 +41,12 @@ public class PeakLoadLiveData extends BaseLiveDataView {
         }
         //Probably add in base view
         initializeButtons();
+        return view;
     }
 
     @Override
     public void updateStats() {
-        ((TextView)findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.sessionMax));
+        ((TextView)view.findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.sessionMax));
     }
     @Override
     public void displayChart(){
@@ -71,18 +76,18 @@ public class PeakLoadLiveData extends BaseLiveDataView {
 
     }
     public void initializeButtons() {
-        if(!getIntent().getBooleanExtra("historical",false)) {
-            findViewById(R.id.btnPeakStart).setOnClickListener(view -> {
+        if(!isHistorical) {
+            view.findViewById(R.id.btnPeakStart).setOnClickListener(view -> {
                 dc.startCollecting();
             });
-            findViewById(R.id.btnPeakStop).setOnClickListener(view -> {
+            view.findViewById(R.id.btnPeakStop).setOnClickListener(view -> {
                 Log.d("stop", "scan stopped");
                 dc.stopCollecting();
             });
-            findViewById(R.id.btnPeakSave).setOnClickListener(view -> {
+            view.findViewById(R.id.btnPeakSave).setOnClickListener(view -> {
                 Log.d("Save", "Saving");
                 dc.stopCollecting();
-                FileManager fm = new FileManager(this);
+                FileManager fm = new FileManager(requireContext());
 
                 session.name = "Peak " + System.currentTimeMillis()/1000;
                 fm.saveSession(session);

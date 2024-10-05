@@ -1,5 +1,8 @@
 package com.example.dyna;
 
+import static android.content.Context.BLUETOOTH_SERVICE;
+
+import android.app.Activity;
 import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,19 +19,25 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import android.content.DialogInterface;
 import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public abstract class BaseLiveDataView extends AppCompatActivity {
+public abstract class BaseLiveDataView extends Fragment {
 
     Session session;
     LineChart lineChart;
     long timeLimit = 30000;
+    boolean isHistorical = false;
     DataCollector dc;
+    View view;
 
     Consumer<TimestampedWeight> callback = tsw -> {
         session.addWeight(tsw);
@@ -36,21 +45,35 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
             displayChart();
     };
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
+//        super.onCreate(savedInstanceState);
+        Activity activity = getActivity();
         // Initialize Bluetooth
-        BluetoothManager bluetoothMgr = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        assert activity != null;
+        BluetoothManager bluetoothMgr = (BluetoothManager) activity.getSystemService(BLUETOOTH_SERVICE);
 
         //TODO: will pass device name later. Right now we'll hardcode IF_B7
         //        Intent intent = getIntent();
         //        final String deviceName = intent.getStringExtra("deviceName");
-        Intent intent = getIntent();
-        session = (Session)intent.getSerializableExtra("session");
+
+        assert getArguments() != null;
+        session = (Session)getArguments().get("session");
+        isHistorical= getArguments().getBoolean("historical", false);
+//        Intent intent = getIntent();
+//        session = (Session)intent.getSerializableExtra("session");
+
+//        Bundle bundle = new Bundle();
+//        bundle.putString("amount", amount);
+//        Navigation.findNavController(view).navigate(R.id.confirmationAction, bundle);
+
         if(session == null){
             session = new Session();
         }
         dc = new DataCollector(bluetoothMgr, callback);
+        return null;
 
     }
 
@@ -95,7 +118,7 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
         lineDataSet.setCircleRadius(2f);
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        runOnUiThread(() -> lineChart.invalidate());
+        lineChart.invalidate();
     }
     public void displayHistoricalChart(){
         LineData lineData;
@@ -108,16 +131,16 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
         lineDataSet.setCircleRadius(2f);
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
-        runOnUiThread(() -> lineChart.invalidate());
+        lineChart.invalidate();
     }
 
     private void showFileNameDialog() {
-        final EditText input = new EditText(this);
+        final EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setHint("Enter session name");
 
         // Build the dialog
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(requireContext())
                 .setTitle("Save Session")
                 .setMessage("Please enter a name for the session")
                 .setView(input)
@@ -131,7 +154,7 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
                             // Handle the file saving process here
                             saveFileWithName(fileName);
                         } else {
-                            Toast.makeText(getApplicationContext(), "Session name cannot be empty", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Session name cannot be empty", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -141,8 +164,8 @@ public abstract class BaseLiveDataView extends AppCompatActivity {
 
     private void saveFileWithName(String fileName) {
         // Implement your file saving logic here
-        FileManager fm = new FileManager(this);
+        FileManager fm = new FileManager(requireContext());
         fm.saveSession(session);
-        Toast.makeText(this, "File '" + fileName + "' saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "File '" + fileName + "' saved", Toast.LENGTH_SHORT).show();
     }
 }

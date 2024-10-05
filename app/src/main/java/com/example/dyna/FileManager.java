@@ -76,7 +76,6 @@ public class FileManager {
                 sessionDirectory.mkdirs();
             }
 
-            ///TODO THIS
             // Read the object from the file
             fis = new FileInputStream(name);
             ois = new ObjectInputStream(fis);
@@ -96,7 +95,8 @@ public class FileManager {
         }
         return session;
     }
-    public ArrayList<Session> getAllSessions(Context context, SessionType sessionType) {
+
+    public ArrayList<Session> getAllSessions(SessionType sessionType) {
 
         // Get the directory (if it exists) or create it
         File profileDirectory = new File(context.getFilesDir(), activeProfile.name);
@@ -224,6 +224,30 @@ public class FileManager {
     public Profile getActiveProfile(){
         String activeUser = context.getSharedPreferences("Settings", Context.MODE_PRIVATE).getString("ActiveUser","Default");
         return getProfile(activeUser);
+    }
+
+    public void deleteSession(Session s){
+        File profileDirectory = new File(context.getFilesDir(), activeProfile.name);
+        if (!profileDirectory.exists()) {
+            profileDirectory.mkdirs();
+        }
+        File sessionDirectory = new File(profileDirectory, s.sessionType.toString());
+        if (!sessionDirectory.exists()) {
+            sessionDirectory.mkdirs();
+        }
+        File sessionFile = new File(sessionDirectory, s.name);
+        sessionFile.delete();
+    }
+    public void deleteAllSessions(){
+        for(SessionType st : SessionType.values()){
+            for(Session s : getAllSessions(st)){
+                deleteSession(s);
+            }
+        }
+
+    }
+    public void deleteProfile(Profile p){
+
     }
 
 }
