@@ -1,7 +1,5 @@
 package com.example.dyna;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -9,9 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.YAxis;
 
 public class RepeaterLiveData extends BaseLiveDataView {
     int setNum = 0;
@@ -52,8 +47,8 @@ public class RepeaterLiveData extends BaseLiveDataView {
                 dc.stopCollecting();
             });
         } else {
-            //hide start and stop buttons
-            //show back/delete/export buttons
+            //TODO hide start and stop buttons
+            // show back/delete/export buttons
         }
     }
 

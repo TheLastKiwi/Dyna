@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 enum SessionType implements Serializable{
-    //I could over-engineer this and have subclasses of session for each type to hold
-    //only their own data. Maybe in the future I'll do that
+    //TODO: I could over-engineer this and have subclasses of session for each type to hold
+    // only their own data. Maybe in the future I'll do that
     LIVE_DATA,
     PEAK_LOAD,
     ENDURANCE,
@@ -70,9 +70,4 @@ Repeaters -> +# sets
              +Target zone max
              +Beep when exiting target zone
              +pause between sets duration
-
-
-
-
-
  */

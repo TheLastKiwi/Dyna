@@ -1,6 +1,5 @@
 package com.example.dyna;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,11 +23,7 @@ public class HistoricalSelection extends Fragment {
         super.onCreateView(inflater,container,savedInstanceState);
 
         view = inflater.inflate(R.layout.historcial_selection,container, false);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
         fm = new FileManager(requireContext());
         initializeButtons();
         return view;
@@ -66,7 +60,6 @@ public class HistoricalSelection extends Fragment {
 
         button.setOnClickListener(v -> {
 
-//            Intent intent;
             NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
             Bundle bundle = new Bundle();
             bundle.putSerializable("session", session);
@@ -74,21 +67,14 @@ public class HistoricalSelection extends Fragment {
             switch (session.sessionType){
                 case PEAK_LOAD:
                     navController.navigate(R.id.action_historicalSelection_to_peakLoadLiveData, bundle);
-//                    intent = new Intent(this, PeakLoadLiveData.class);
                     break;
                 case REPEATER:
                     navController.navigate(R.id.action_historicalSelection_to_repeaterLiveData, bundle);
-//                    intent = new Intent(this, RepeaterLiveData.class);
                     break;
                 default:
                     // Uhoh
                     navController.navigate(R.id.historicalSelection, bundle);
-//                    intent = new Intent(this, HistoricalSelection.class);
             }
-
-//            intent.putExtra("historical",true);
-//            intent.putExtra("session", session);
-//            startActivity(intent);
         });
         return button;
     }

@@ -4,11 +4,8 @@ import static android.content.Context.BLUETOOTH_SERVICE;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothManager;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;

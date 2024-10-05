@@ -25,18 +25,8 @@ public class RepeatersSettings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
-
         view = inflater.inflate(R.layout.repeaters_settings,container, false);
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-////                    .replace(R.id.settings, new SettingsFragment())
-//                    .commit();
-//        }
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
+
         //Reps
         ArrayList<String> numberOptions = new ArrayList<>();
         for (int i = 1; i < 100; i++) {
@@ -79,31 +69,24 @@ public class RepeatersSettings extends Fragment {
         SwitchMaterial switchPlot = view.findViewById(R.id.switchPlot);
         switchPlot.setChecked(true);
         switchPlot.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            switchPlot.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
             view.findViewById(R.id.llPlot).setVisibility(isChecked?View.VISIBLE:View.GONE);
         });
         SwitchMaterial switchSound = view.findViewById(R.id.switchSound);
         switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            switchSound.setBackgroundColor(isChecked?Color.GREEN:Color.RED);
-
+            //TODO Enabled sound
         });
 
-
+        //TODO save preset and load settings from preset
         //Preset
         //Load presets from disk
         //get all names
         //populate list
 
-        //on click -> load settings
         NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
         view.findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("session", createSession());
             navController.navigate(R.id.action_repeatersSettings_to_repeaterLiveData, bundle);
-//            Intent intent = new Intent(this, RepeaterLiveData.class);
-//            Session session = createSession();
-//            intent.putExtra("session",session);
-//            startActivity(intent);
         });
         view.findViewById(R.id.btnRepPresetSave).setOnClickListener(view -> {
 

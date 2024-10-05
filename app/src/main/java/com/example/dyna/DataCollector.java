@@ -45,14 +45,14 @@ public class DataCollector {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             if (result.getScanRecord() != null && collectingData) {
-//                Log.d("Data", result.getScanRecord().toString());
                 byte[] data = result.getScanRecord().getManufacturerSpecificData(256);
                 //byte 10 * 256 + unsigned byte 11 = weight
                 //Byte 9/14 for unit of measurement
                 //kg -> 1,1
                 //lb -> -1 0
                 Log.d("Data",Arrays.toString(data));
-//                TimestampedWeight reading = new TimestampedWeight());
+                //TODO: Maybe we should divide by 100 here because that's the real data it's reading
+                // And store in reading what unit the scale is outputting so we can display that too
                 TimestampedWeight reading = new TimestampedWeight(cstu(data[10]) * 256 + cstu(data[11]));
                 viewCallback.accept(reading);
             }

@@ -8,18 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class PeakLoadLiveData extends BaseLiveDataView {
 
@@ -27,7 +17,6 @@ public class PeakLoadLiveData extends BaseLiveDataView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
         view = inflater.inflate(R.layout.peak_load_live_data,container, false);
-//        EdgeToEdge.enable(this);
 
         lineChart = view.findViewById(R.id.lineChartPeakData);
         assert getArguments() != null;
@@ -61,11 +50,11 @@ public class PeakLoadLiveData extends BaseLiveDataView {
         rightAxis.setAxisMinimum(0f);
         rightAxis.setAxisMaximum(limit);
 
-        LimitLine llPlotMax = new LimitLine(session.sessionMax/100f, "Max"); // 10f is the Y value, "Limit" is the label
+        LimitLine llPlotMax = new LimitLine(session.sessionMax/100f, "Max");
 
-        llPlotMax.setLineWidth(2f); // Set line width
-        llPlotMax.setLineColor(Color.GREEN); // Set line color
-        llPlotMax.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
+        llPlotMax.setLineWidth(2f);
+        llPlotMax.setLineColor(Color.GREEN);
+        llPlotMax.enableDashedLine(10f, 10f, 0f);
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(llPlotMax);
         if(isHistorical) {

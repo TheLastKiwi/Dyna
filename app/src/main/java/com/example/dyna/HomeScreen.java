@@ -21,7 +21,7 @@ public class HomeScreen extends Fragment {
 
         view = inflater.inflate(R.layout.home_screen,container, false);
         fm = new FileManager(requireContext());
-//        getSharedPreferences("Settings",Context.MODE_PRIVATE).edit().clear().commit();
+
         String activeUser = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE).getString("ActiveUser", null);
         //If no profile present, create a default profile
 
@@ -45,33 +45,22 @@ public class HomeScreen extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("session", new Session(SessionType.LIVE_DATA));
             navController.navigate(R.id.action_homeScreen_to_liveDataView, bundle);
-
-//            Intent intent = new Intent(this, LiveDataView.class);
-//            startActivity(intent);
         });
 
         view.findViewById(R.id.btnRepeater).setOnClickListener(view -> {
             navController.navigate(R.id.action_homeScreen_to_repeatersSettings);
-//            Intent intent = new Intent(this, RepeatersSettings.class);
-//            startActivity(intent);
         });
 
         view.findViewById(R.id.btnPeakLoad).setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("session", new Session(SessionType.PEAK_LOAD));
             navController.navigate(R.id.action_homeScreen_to_peakLoadLiveData, bundle);
-//            Intent intent = new Intent(this, PeakLoadLiveData.class);
-//            startActivity(intent);
         });
         view.findViewById(R.id.btnHistorical).setOnClickListener(view -> {
             navController.navigate(R.id.action_homeScreen_to_historicalSelection);
-//            Intent intent = new Intent(this, HistoricalSelection.class);
-//            startActivity(intent);
         });
         view.findViewById(R.id.btnProfile).setOnClickListener(view -> {
             navController.navigate(R.id.action_homeScreen_to_swapProfile);
-//            Intent intent = new Intent(this, SwapProfile.class);
-//            startActivity(intent);
         });
         //Load settings from somewhere to set Profile based on last activity
         return view;
