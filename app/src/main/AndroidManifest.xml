@@ -20,7 +20,7 @@
         android:theme="@style/Theme.Dyna"
         tools:targetApi="31" >
         <activity
-            android:name=".CriticalForceLiveData"
+            android:name=".LiveDataViews.CriticalForceLiveData"
             android:exported="false" />
         <activity
             android:name=".CreateProfile"
@@ -32,20 +32,20 @@
             android:name=".HistoricalSelection"
             android:exported="false" />
         <activity
-            android:name=".PeakLoadLiveData"
+            android:name=".LiveDataViews.PeakLoadLiveData"
             android:exported="false" />
         <activity
-            android:name=".LiveDataView"
+            android:name=".LiveDataViews.LiveDataView"
             android:exported="false" />
         <activity
-            android:name=".RepeaterLiveData"
+            android:name=".LiveDataViews.RepeaterLiveData"
             android:exported="false" />
         <activity
-            android:name=".RepeatersSettings"
+            android:name=".Settings.RepeatersSettings"
             android:exported="false"
             android:label="@string/title_activity_repeaters_settings" />
         <activity
-            android:name=".EnduranceSettings"
+            android:name=".Settings.EnduranceSettings"
             android:exported="false"
             android:label="@string/title_activity_endurance_settings" />
         <activity
@@ -57,7 +57,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BaseLiveDataView" />
+        <activity android:name=".LiveDataViews.BaseLiveDataView" />
     </application>
 
 </manifest>

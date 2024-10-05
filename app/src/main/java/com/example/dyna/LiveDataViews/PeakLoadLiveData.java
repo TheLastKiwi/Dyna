@@ -1,4 +1,4 @@
-package com.example.dyna;
+package com.example.dyna.LiveDataViews;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dyna.R;
+import com.example.dyna.SessionType;
+import com.example.dyna.Utils.FileManager;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
 
@@ -16,7 +19,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
-        view = inflater.inflate(R.layout.peak_load_live_data,container, false);
+        view = inflater.inflate(R.layout.peak_load_live_data_fragment,container, false);
 
         lineChart = view.findViewById(R.id.lineChartPeakData);
         assert getArguments() != null;
@@ -25,7 +28,6 @@ public class PeakLoadLiveData extends BaseLiveDataView {
             displayChart();
             updateStats();
         } else {
-            session.sessionType=SessionType.PEAK_LOAD;
             timeLimit = 5000;
         }
         //Probably add in base view
@@ -35,14 +37,14 @@ public class PeakLoadLiveData extends BaseLiveDataView {
 
     @Override
     public void updateStats() {
-        ((TextView)view.findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.sessionMax));
+        ((TextView)view.findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.getSessionMax()));
     }
     @Override
     public void displayChart(){
         //TODO: If units are KG, we need a different formula, one that maxes out at 300
         // https://mycurvefit.com/
         YAxis leftAxis = lineChart.getAxisLeft();
-        float x = session.sessionMax/100f;
+        float x = session.getSessionMax()/100f;
         float limit = (float)(4.641323f*Math.pow(x,0.7529087));
         leftAxis.setAxisMaximum(limit);
         leftAxis.setAxisMinimum(0f);
@@ -50,7 +52,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
         rightAxis.setAxisMinimum(0f);
         rightAxis.setAxisMaximum(limit);
 
-        LimitLine llPlotMax = new LimitLine(session.sessionMax/100f, "Max");
+        LimitLine llPlotMax = new LimitLine(session.getSessionMax()/100f, "Max");
 
         llPlotMax.setLineWidth(2f);
         llPlotMax.setLineColor(Color.GREEN);
@@ -78,15 +80,23 @@ public class PeakLoadLiveData extends BaseLiveDataView {
             view.findViewById(R.id.btnPeakSave).setOnClickListener(view -> {
                 Log.d("Save", "Saving");
                 dc.stopCollecting();
-                FileManager fm = new FileManager(requireContext());
-
-                session.name = "Peak " + System.currentTimeMillis()/1000;
-                fm.saveSession(session);
+                showSaveSessionDialog();
+                if(session.getName() != null){
+                    view.findViewById(R.id.btnPeakSave).setEnabled(false);
+                }
             });
         }else {
+            view.findViewById(R.id.btnPeakExport).setOnClickListener(v -> {
+                FileManager fm = new FileManager(requireContext());
+                fm.exportSessionToCSV(session);
+            });
             //TODO
             // hide start, stop, save buttons
             // show export buttons
         }
+    }
+    @Override
+    int getSaveButtonId() {
+        return R.id.btnPeakSave;
     }
 }

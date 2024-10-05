@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.dyna.Utils.FileManager;
+
 public class HomeScreen extends Fragment {
     FileManager fm;
     View view;
@@ -19,7 +21,7 @@ public class HomeScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
 
-        view = inflater.inflate(R.layout.home_screen,container, false);
+        view = inflater.inflate(R.layout.home_screen_fragment,container, false);
         fm = new FileManager(requireContext());
 
         String activeUser = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE).getString("ActiveUser", null);
@@ -37,7 +39,7 @@ public class HomeScreen extends Fragment {
         }
         Profile activeProfile = fm.getProfile(activeUser);
 
-        ((TextView)view.findViewById(R.id.txtCurrentProfile)).setText(activeProfile.displayName);
+        ((TextView)view.findViewById(R.id.txtCurrentProfile)).setText(activeProfile.getDisplayName());
 
         NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
 
@@ -48,6 +50,8 @@ public class HomeScreen extends Fragment {
         });
 
         view.findViewById(R.id.btnRepeater).setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("session", new Session(SessionType.REPEATER));
             navController.navigate(R.id.action_homeScreen_to_repeatersSettings);
         });
 

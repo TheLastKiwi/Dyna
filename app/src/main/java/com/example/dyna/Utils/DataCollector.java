@@ -1,10 +1,12 @@
-package com.example.dyna;
+package com.example.dyna.Utils;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.util.Log;
+
+import com.example.dyna.TimestampedWeight;
 
 import java.util.Arrays;
 import java.util.function.Consumer;

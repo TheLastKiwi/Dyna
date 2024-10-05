@@ -1,4 +1,4 @@
-package com.example.dyna;
+package com.example.dyna.LiveDataViews;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dyna.R;
+
 public class RepeaterLiveData extends BaseLiveDataView {
     int setNum = 0;
     int repNum = 0;
@@ -16,13 +18,13 @@ public class RepeaterLiveData extends BaseLiveDataView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
-        view = inflater.inflate(R.layout.repeater_live_data,container, false);
+        view = inflater.inflate(R.layout.repeater_live_data_fragment,container, false);
 
 
         lineChart = view.findViewById(R.id.lineChartRepeater);
         initializeButtons();
-        timeLimit = session.workTime * 1000L;
-        if(session.plotTarget) {
+        timeLimit = session.getWorkTime() * 1000L;
+        if(session.isPlotTarget()) {
             setLineLimits();
         }
         return view;
@@ -33,18 +35,29 @@ public class RepeaterLiveData extends BaseLiveDataView {
     public void updateStats() {
         ((TextView)view.findViewById(R.id.txtRepeaterCurrent)).setText(String.valueOf(session.getLatest()));
         ((TextView)view.findViewById(R.id.txtRepeaterRepNum)).setText(String.valueOf(repNum));
-        ((TextView)view.findViewById(R.id.txtRepeaterSetNum)).setText(setNum + "/" + session.numSets);
+        ((TextView)view.findViewById(R.id.txtRepeaterSetNum)).setText(setNum + "/" + session.getNumSets());
         ((TextView)view.findViewById(R.id.txtCountdown)).setText(String.valueOf(countdownLeft));
     }
 
+    @Override
+    int getSaveButtonId() {
+        return R.id.btnRepeaterSave;
+    }
+
     public void initializeButtons() {
-        if(isHistorical) {
+        if(!isHistorical) {
             view.findViewById(R.id.btnRepeaterStart).setOnClickListener(view -> {
                 timerTowerStart();
             });
             view.findViewById(R.id.btnRepeaterStop).setOnClickListener(view -> {
                 Log.d("stop", "scan stopped");
                 dc.stopCollecting();
+            });
+            view.findViewById(R.id.btnRepeaterSave).setOnClickListener(view -> {
+                showSaveSessionDialog();
+                if(session.getName() != null){
+                    view.findViewById(R.id.btnRepeaterSave).setEnabled(false);
+                }
             });
         } else {
             //TODO hide start and stop buttons
@@ -54,7 +67,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
 
     private void timerTowerStart(){
         //Initial countdown timer
-        countdownLeft = session.countdown;
+        countdownLeft = session.getCountdown();
         Log.d("TIMER", "initialTimer Started");
         new CountDownTimer(countdownLeft * 1000L, 1000) { // 10 seconds countdown, ticking every second
             public void onTick(long millisUntilFinished) {
@@ -68,7 +81,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
                 Log.d("TIMER", "Initial timer finished");
                 repNum = 1;
                 setNum = 1;
-                countdownLeft = session.workTime;
+                countdownLeft = session.getWorkTime();
                 updateStats();
                 startRepTimer();
             }
@@ -88,14 +101,14 @@ public class RepeaterLiveData extends BaseLiveDataView {
 
             public void onFinish() {
 
-                if(repNum == session.numReps) {
+                if(repNum == session.getNumReps()) {
                     repNum = 1;
                     setNum ++;
                 } else {
                     repNum++;
                 }
 
-                countdownLeft = session.workTime;
+                countdownLeft = session.getWorkTime();
                 updateStats();
                 startRepTimer();
             }
@@ -105,7 +118,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
         Log.d("TIMER", "repTimer Started");
         dc.startCollecting();
         ((TextView) view.findViewById(R.id.txtPullRest)).setText("Pull");
-        new CountDownTimer(session.workTime * 1000L, 1000) { // 10 seconds countdown, ticking every second
+        new CountDownTimer(session.getWorkTime() * 1000L, 1000) { // 10 seconds countdown, ticking every second
 
             public void onTick(long millisUntilFinished) {
                 // Update UI with the time left on rep
@@ -118,13 +131,13 @@ public class RepeaterLiveData extends BaseLiveDataView {
                 // Code to run when the timer finishes
                 Log.d("TIMER", "rep finished");
                 ((TextView) view.findViewById(R.id.txtPullRest)).setText("Rest");
-                if(repNum < session.numReps) {
-                    countdownLeft = session.restTime;
+                if(repNum < session.getNumReps()) {
+                    countdownLeft = session.getRestTime();
                     dc.stopCollecting();
                     startPauseBetweenRepsTimer();
 
-                } else if(setNum < session.numSets) {
-                    countdownLeft = session.pauseTime;
+                } else if(setNum < session.getNumSets()) {
+                    countdownLeft = session.getPauseTime();
                     dc.stopCollecting();
                     startPauseBetweenSetsTimer();
 
@@ -142,8 +155,8 @@ public class RepeaterLiveData extends BaseLiveDataView {
         dc.stopCollecting();
         Log.d("TIMER", "pauseBetweenReps Started");
         //if zero it'll never start, make sure it's never zero
-        Log.d("TIMER",String.format("Rest: %d, \n CD: %d, \nPause: %d",session.restTime, session.countdown, Math.max(session.restTime - session.countdown, 0) * 1000L));
-        new CountDownTimer(Math.max(session.restTime - session.countdown, 0) * 1000L, 1000) {
+        Log.d("TIMER",String.format("Rest: %d, \n CD: %d, \nPause: %d",session.getRestTime(), session.getCountdown(), Math.max(session.getRestTime() - session.getCountdown(), 0) * 1000L));
+        new CountDownTimer(Math.max(session.getRestTime() - session.getCountdown(), 0) * 1000L, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Update UI with the time left before rep
                 countdownLeft--;
@@ -160,7 +173,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
     public void startPauseBetweenSetsTimer(){
         dc.stopCollecting();
         Log.d("TIMER", "pauseBetweenSets Started");
-        new CountDownTimer(Math.max(session.pauseTime - session.countdown, 0) * 1000L, 1000) {
+        new CountDownTimer(Math.max(session.getPauseTime() - session.getCountdown(), 0) * 1000L, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Update UI with the time left on pause
                 countdownLeft--;

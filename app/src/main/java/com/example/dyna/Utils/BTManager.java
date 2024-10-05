@@ -1,4 +1,4 @@
-package com.example.dyna;
+package com.example.dyna.Utils;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;

@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.dyna.Utils.FileManager;
+
 import java.util.ArrayList;
 
 public class HistoricalSelection extends Fragment {
@@ -22,7 +24,7 @@ public class HistoricalSelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
 
-        view = inflater.inflate(R.layout.historcial_selection,container, false);
+        view = inflater.inflate(R.layout.historical_selection_fragment,container, false);
 
         fm = new FileManager(requireContext());
         initializeButtons();
@@ -55,7 +57,7 @@ public class HistoricalSelection extends Fragment {
 
     private @NonNull Button getButton(Session session) {
         Button button = new Button(requireContext());
-        button.setText(session.name);
+        button.setText(session.getName());
 
         button.setOnClickListener(v -> {
 
@@ -63,7 +65,7 @@ public class HistoricalSelection extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("session", session);
             bundle.putBoolean("historical",true);
-            switch (session.sessionType){
+            switch (session.getSessionType()){
                 case PEAK_LOAD:
                     navController.navigate(R.id.action_historicalSelection_to_peakLoadLiveData, bundle);
                     break;

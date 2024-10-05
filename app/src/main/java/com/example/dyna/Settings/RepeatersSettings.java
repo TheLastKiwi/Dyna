@@ -1,4 +1,4 @@
-package com.example.dyna;
+package com.example.dyna.Settings;
 
 import android.os.Bundle;
 import android.text.InputType;
@@ -14,6 +14,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.example.dyna.R;
+import com.example.dyna.Session;
+import com.example.dyna.SessionType;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.lang.reflect.Field;
@@ -25,7 +28,7 @@ public class RepeatersSettings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
-        view = inflater.inflate(R.layout.repeaters_settings,container, false);
+        view = inflater.inflate(R.layout.repeaters_settings_fragment,container, false);
 
         //Reps
         ArrayList<String> numberOptions = new ArrayList<>();
@@ -95,18 +98,17 @@ public class RepeatersSettings extends Fragment {
     }
 
     public Session createSession() {
-        Session session = new Session();
-        session.sessionType = SessionType.REPEATER;
-        session.numSets = ((NumberPicker) view.findViewById(R.id.npSets)).getValue() + 1;
-        session.numReps = ((NumberPicker) view.findViewById(R.id.npReps)).getValue() + 1;
-        session.workTime = ((NumberPicker) view.findViewById(R.id.npWork)).getValue() + 1;
-        session.restTime = ((NumberPicker) view.findViewById(R.id.npRest)).getValue() + 1;
-        session.pauseTime = ((NumberPicker) view.findViewById(R.id.npPause)).getValue() + 1;
-        session.countdown = ((NumberPicker) view.findViewById(R.id.npCountdown)).getValue() + 1;
-        session.sound = ((SwitchMaterial) view.findViewById(R.id.switchSound)).isChecked();
-        session.plotTarget = ((SwitchMaterial) view.findViewById(R.id.switchPlot)).isChecked();
-        session.plotMin = ((NumberPicker) view.findViewById(R.id.npPlotMin)).getValue() + 1;
-        session.plotMax = ((NumberPicker) view.findViewById(R.id.npPlotMax)).getValue() + 1;
+        Session session = new Session(SessionType.REPEATER);
+        session.setNumSets(((NumberPicker) view.findViewById(R.id.npSets)).getValue() + 1);
+        session.setNumReps(((NumberPicker) view.findViewById(R.id.npReps)).getValue() + 1);
+        session.setWorkTime(((NumberPicker) view.findViewById(R.id.npWork)).getValue() + 1);
+        session.setRestTime(((NumberPicker) view.findViewById(R.id.npRest)).getValue() + 1);
+        session.setPauseTime(((NumberPicker) view.findViewById(R.id.npPause)).getValue() + 1);
+        session.setCountdown(((NumberPicker) view.findViewById(R.id.npCountdown)).getValue() + 1);
+        session.setSound(((SwitchMaterial) view.findViewById(R.id.switchSound)).isChecked());
+        session.setPlotTarget(((SwitchMaterial) view.findViewById(R.id.switchPlot)).isChecked());
+        session.setPlotMin(((NumberPicker) view.findViewById(R.id.npPlotMin)).getValue() + 1);
+        session.setPlotMax(((NumberPicker) view.findViewById(R.id.npPlotMax)).getValue() + 1);
         return session;
     }
 

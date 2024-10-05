@@ -3,56 +3,161 @@ package com.example.dyna;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-enum SessionType implements Serializable{
-    //TODO: I could over-engineer this and have subclasses of session for each type to hold
-    // only their own data. Maybe in the future I'll do that
-    LIVE_DATA,
-    PEAK_LOAD,
-    ENDURANCE,
-    REPEATER,
-    CRITICAL_FORCE
-}
+
 public class Session implements Serializable {
-    SessionType sessionType;
-    List<TimestampedWeight> weights;
-    String name;
-    int sessionMax = 0;
-    int currentAvg = 0;
+    private SessionType sessionType;
+    private List<TimestampedWeight> weights;
+
+    private String name;
+    private int sessionMax = 0;
+    private int currentAvg = 0;
     private int weightSum = 0;
 
     int enduranceDuration;
-    int numSets;
-    int numReps;
-    int workTime;
-    int restTime;
-    int pauseTime;
-    int countdown;
-    boolean plotTarget;
-    int plotMin;
-    int plotMax;
-    boolean sound;
+
+    private int numSets;
+    private int numReps;
+    private int workTime;
+    private int restTime;
+    private int pauseTime;
+    private int countdown;
+    private boolean plotTarget;
+    private int plotMin;
+    private int plotMax;
+    private boolean sound;
 
 
-    Session(){
+    public Session(){
         weights = new ArrayList<>();
     }
-    Session(SessionType type) {
+    public Session(SessionType type) {
         this.sessionType = type;
         weights = new ArrayList<>();
     }
 
     public void addWeight(TimestampedWeight timestampedWeight){
         weights.add(timestampedWeight);
-        sessionMax = Math.max(sessionMax, timestampedWeight.weight);
-        weightSum += timestampedWeight.weight;
+        sessionMax = Math.max(sessionMax, timestampedWeight.getWeight());
+        weightSum += timestampedWeight.getWeight();
         currentAvg = weightSum / weights.size();
     }
     public int getLatest(){
         if(weights.isEmpty()) return 0;
-        return weights.get(weights.size()-1).weight;
+        return weights.get(weights.size()-1).getWeight();
     }
     public long getSesionLength(){
-        return weights.get(weights.size() - 1).timestamp - weights.get(0).timestamp;
+        return weights.get(weights.size() - 1).getTimestamp() - weights.get(0).getTimestamp();
+    }
+
+    public SessionType getSessionType() {
+        return sessionType;
+    }
+
+    public List<TimestampedWeight> getWeights() {
+        return weights;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSessionMax() {
+        return sessionMax;
+    }
+
+    public int getCurrentAvg() {
+        return currentAvg;
+    }
+
+    public int getWeightSum() {
+        return weightSum;
+    }
+
+    public int getNumSets() {
+        return numSets;
+    }
+
+    public int getNumReps() {
+        return numReps;
+    }
+
+    public int getWorkTime() {
+        return workTime;
+    }
+
+    public int getRestTime() {
+        return restTime;
+    }
+
+    public int getCountdown() {
+        return countdown;
+    }
+
+    public int getPauseTime() {
+        return pauseTime;
+    }
+
+    public boolean isPlotTarget() {
+        return plotTarget;
+    }
+
+    public int getPlotMin() {
+        return plotMin;
+    }
+
+    public int getPlotMax() {
+        return plotMax;
+    }
+
+    public boolean isSound() {
+        return sound;
+    }
+    public void setNumSets(int numSets) {
+        this.numSets = numSets;
+    }
+
+    public void setNumReps(int numReps) {
+        this.numReps = numReps;
+    }
+
+    public void setWorkTime(int workTime) {
+        this.workTime = workTime;
+    }
+
+    public void setRestTime(int restTime) {
+        this.restTime = restTime;
+    }
+
+    public void setPauseTime(int pauseTime) {
+        this.pauseTime = pauseTime;
+    }
+
+    public void setCountdown(int countdown) {
+        this.countdown = countdown;
+    }
+
+    public void setPlotTarget(boolean plotTarget) {
+        this.plotTarget = plotTarget;
+    }
+
+    public void setPlotMin(int plotMin) {
+        this.plotMin = plotMin;
+    }
+
+    public void setPlotMax(int plotMax) {
+        this.plotMax = plotMax;
+    }
+
+    public void setSound(boolean sound) {
+        this.sound = sound;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSessionType(SessionType sessionType) {
+        this.sessionType = sessionType;
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.dyna;
+package com.example.dyna.LiveDataViews;
 
 import static android.content.Context.BLUETOOTH_SERVICE;
 
@@ -7,6 +7,10 @@ import android.bluetooth.BluetoothManager;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.example.dyna.Utils.DataCollector;
+import com.example.dyna.Utils.FileManager;
+import com.example.dyna.Session;
+import com.example.dyna.TimestampedWeight;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
@@ -14,7 +18,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import android.content.DialogInterface;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,11 +45,7 @@ public abstract class BaseLiveDataView extends Fragment {
             displayChart();
     };
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-//        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Activity activity = getActivity();
         // Initialize Bluetooth
         assert activity != null;
@@ -59,16 +58,7 @@ public abstract class BaseLiveDataView extends Fragment {
         assert getArguments() != null;
         session = (Session)getArguments().get("session");
         isHistorical= getArguments().getBoolean("historical", false);
-//        Intent intent = getIntent();
-//        session = (Session)intent.getSerializableExtra("session");
 
-//        Bundle bundle = new Bundle();
-//        bundle.putString("amount", amount);
-//        Navigation.findNavController(view).navigate(R.id.confirmationAction, bundle);
-
-        if(session == null){
-            session = new Session();
-        }
         dc = new DataCollector(bluetoothMgr, callback);
         return null;
 
@@ -76,18 +66,18 @@ public abstract class BaseLiveDataView extends Fragment {
 
     public void setLineLimits(){
         YAxis leftAxis = lineChart.getAxisLeft();
-        leftAxis.setAxisMaximum(session.plotMax + 10);
+        leftAxis.setAxisMaximum(session.getPlotMax() + 10);
 
-        LimitLine llPlotMin = new LimitLine(session.plotMin, "Min"); // 10f is the Y value, "Limit" is the label
-        LimitLine llPlotMax = new LimitLine(session.plotMax, "Max"); // 10f is the Y value, "Limit" is the label
+        LimitLine llPlotMin = new LimitLine(session.getPlotMin(), "Min");
+        LimitLine llPlotMax = new LimitLine(session.getPlotMax(), "Max");
 
-        llPlotMin.setLineWidth(2f); // Set line width
+        llPlotMin.setLineWidth(2f);
         llPlotMin.setLineColor(Color.GREEN); // Set line color
-        llPlotMin.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
+        llPlotMin.enableDashedLine(10f, 10f, 0f);
 
-        llPlotMax.setLineWidth(2f); // Set line width
-        llPlotMax.setLineColor(Color.RED); // Set line color
-        llPlotMax.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
+        llPlotMax.setLineWidth(2f);
+        llPlotMax.setLineColor(Color.RED);
+        llPlotMax.enableDashedLine(10f, 10f, 0f);
 
         leftAxis.addLimitLine(llPlotMin);
         leftAxis.addLimitLine(llPlotMax);
@@ -102,14 +92,14 @@ public abstract class BaseLiveDataView extends Fragment {
 
         long now = System.currentTimeMillis();
 
-        while(now - session.weights.get(startIndex).timestamp > timeLimit){
+        while(now - session.getWeights().get(startIndex).getTimestamp() > timeLimit){
             entries.remove(0);
             startIndex++;
         }
 
-        long startTime = session.weights.get(0).timestamp;
-        TimestampedWeight latest = session.weights.get(session.weights.size() - 1);
-        entries.add(new Entry((float) (latest.timestamp - startTime) / 1000, (float)latest.weight/100));
+        long startTime = session.getWeights().get(0).getTimestamp();
+        TimestampedWeight latest = session.getWeights().get(session.getWeights().size() - 1);
+        entries.add(new Entry((float) (latest.getTimestamp() - startTime) / 1000, (float)latest.getWeight()/100));
 
         lineDataSet = new LineDataSet(entries,null);
         lineDataSet.setCircleRadius(2f);
@@ -117,12 +107,13 @@ public abstract class BaseLiveDataView extends Fragment {
         lineChart.setData(lineData);
         lineChart.invalidate();
     }
+
     public void displayHistoricalChart(){
         LineData lineData;
         LineDataSet lineDataSet;
-        long startTime = session.weights.get(0).timestamp;
-        for(TimestampedWeight weight : session.weights){
-            entries.add(new Entry((float) (weight.timestamp - startTime) / 1000, (float)weight.weight/100));
+        long startTime = session.getWeights().get(0).getTimestamp();
+        for(TimestampedWeight weight : session.getWeights()){
+            entries.add(new Entry((float) (weight.getTimestamp() - startTime) / 1000, (float)weight.getWeight()/100));
         }
         lineDataSet = new LineDataSet(entries,null);
         lineDataSet.setCircleRadius(2f);
@@ -131,7 +122,7 @@ public abstract class BaseLiveDataView extends Fragment {
         lineChart.invalidate();
     }
 
-    private void showFileNameDialog() {
+    void showSaveSessionDialog() {
         final EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setHint("Enter session name");
@@ -141,24 +132,24 @@ public abstract class BaseLiveDataView extends Fragment {
                 .setTitle("Save Session")
                 .setMessage("Please enter a name for the session")
                 .setView(input)
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Get the user input
-                        String fileName = input.getText().toString().trim();
+                .setPositiveButton("Save", (dialog, which) -> {
+                    // Get the user input
+                    String fileName = input.getText().toString().trim();
 
-                        if (!fileName.isEmpty()) {
-                            // Handle the file saving process here
-                            saveFileWithName(fileName);
-                        } else {
-                            Toast.makeText(requireContext(), "Session name cannot be empty", Toast.LENGTH_SHORT).show();
-                        }
+                    if (!fileName.isEmpty()) {
+                        // Handle the file saving process here
+                        FileManager fm = new FileManager(requireContext());
+                        session.setName(fileName);
+                        fm.saveSession(session);
+                        requireActivity().findViewById(getSaveButtonId()).setEnabled(false);
+                    } else {
+                        Toast.makeText(requireContext(), "Session name cannot be empty", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
     }
-
+    abstract int getSaveButtonId();
     private void saveFileWithName(String fileName) {
         // Implement your file saving logic here
         FileManager fm = new FileManager(requireContext());

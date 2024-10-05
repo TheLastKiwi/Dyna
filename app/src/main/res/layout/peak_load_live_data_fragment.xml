@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PeakLoadLiveData">
+    tools:context=".LiveDataViews.PeakLoadLiveData">
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChartPeakData"
@@ -75,4 +75,13 @@
                 android:textSize="48sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/btnPeakExport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Export"
+        app:layout_constraintBottom_toTopOf="@+id/btnPeakSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

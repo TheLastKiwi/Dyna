@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.dyna.Utils.FileManager;
+
 import java.util.ArrayList;
 
 public class SwapProfile extends Fragment {
@@ -23,7 +25,7 @@ public class SwapProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
 
-        view = inflater.inflate(R.layout.activity_swap_profile,container, false);
+        view = inflater.inflate(R.layout.swap_profile_fragment,container, false);
         addButtons();
         NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
         view.findViewById(R.id.btnCreateProfile).setOnClickListener(v ->{
@@ -42,12 +44,12 @@ public class SwapProfile extends Fragment {
     }
     private @NonNull Button getButton(Profile profile) {
         Button button = new Button(requireContext());
-        button.setText(profile.displayName);
+        button.setText(profile.getDisplayName());
         NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
         //TODO: Customize button style here
         button.setOnClickListener(v -> {
             //Set active user
-            changeUser(profile.name);
+            changeUser(profile.getName());
             navController.popBackStack();
         });
         return button;

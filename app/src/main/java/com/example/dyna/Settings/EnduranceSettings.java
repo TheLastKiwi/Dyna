@@ -1,4 +1,4 @@
-package com.example.dyna;
+package com.example.dyna.Settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.example.dyna.R;
+
 public class EnduranceSettings extends Fragment {
 
     View view;
@@ -15,7 +17,7 @@ public class EnduranceSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
 
-        view = inflater.inflate(R.layout.endurance_settings,container, false);
+        view = inflater.inflate(R.layout.endurance_settings_fragment,container, false);
 
         return view;
     }

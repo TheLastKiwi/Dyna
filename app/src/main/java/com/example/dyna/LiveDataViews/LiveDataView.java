@@ -1,4 +1,4 @@
-package com.example.dyna;
+package com.example.dyna.LiveDataViews;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.dyna.R;
 import com.google.android.material.textview.MaterialTextView;
 
 public class LiveDataView extends BaseLiveDataView {
@@ -13,7 +14,7 @@ public class LiveDataView extends BaseLiveDataView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
-        view = inflater.inflate(R.layout.live_data,container, false);
+        view = inflater.inflate(R.layout.live_data_fragment,container, false);
         initializeButtons();
         lineChart = view.findViewById(R.id.lineChartLiveData);
         timeLimit = 30000;
@@ -23,8 +24,8 @@ public class LiveDataView extends BaseLiveDataView {
 
     @Override
     public void updateStats(){
-        ((MaterialTextView)view.findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.sessionMax));
-        ((MaterialTextView)view.findViewById(R.id.txtAvg)).setText(String.valueOf(session.currentAvg));
+        ((MaterialTextView)view.findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.getSessionMax()));
+        ((MaterialTextView)view.findViewById(R.id.txtAvg)).setText(String.valueOf(session.getCurrentAvg()));
         ((MaterialTextView)view.findViewById(R.id.txtCurrent)).setText(String.valueOf(session.getLatest()));
     }
 
@@ -36,5 +37,10 @@ public class LiveDataView extends BaseLiveDataView {
             Log.d("stop", "scan stopped");
             dc.stopCollecting();
         });
+    }
+    @Override
+    int getSaveButtonId() {
+        //TODO: IMPLEMENT if we want to save live data sessions
+        return 0;
     }
 }
