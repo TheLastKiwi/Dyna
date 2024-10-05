@@ -65,6 +65,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
 
     }
     public void initializeButtons() {
+
         if(!isHistorical) {
             view.findViewById(R.id.btnPeakStart).setOnClickListener(view -> {
                 dc.startCollecting();
@@ -73,6 +74,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
                 Log.d("stop", "scan stopped");
                 dc.stopCollecting();
             });
+            //TODO Only enable save button if collection has stopped
             view.findViewById(R.id.btnPeakSave).setOnClickListener(view -> {
                 Log.d("Save", "Saving");
                 dc.stopCollecting();
@@ -82,8 +84,9 @@ public class PeakLoadLiveData extends BaseLiveDataView {
                 fm.saveSession(session);
             });
         }else {
-            //hide start, stop, save buttons
-            //show back/delete/export buttons
+            //TODO
+            // hide start, stop, save buttons
+            // show export buttons
         }
     }
 }

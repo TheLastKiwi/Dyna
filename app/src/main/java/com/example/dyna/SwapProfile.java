@@ -44,6 +44,7 @@ public class SwapProfile extends Fragment {
         Button button = new Button(requireContext());
         button.setText(profile.displayName);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+        //TODO: Customize button style here
         button.setOnClickListener(v -> {
             //Set active user
             changeUser(profile.name);

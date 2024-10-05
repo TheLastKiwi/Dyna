@@ -48,7 +48,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
             });
         } else {
             //TODO hide start and stop buttons
-            // show back/delete/export buttons
+            // show export buttons
         }
     }
 

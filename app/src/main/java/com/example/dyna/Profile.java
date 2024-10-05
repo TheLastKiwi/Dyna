@@ -3,6 +3,7 @@ package com.example.dyna;
 import java.io.Serializable;
 
 public class Profile implements Serializable {
+    //TODO: Eventually have a website to share data with friends
     String name;
     String displayName;
     // Other settings like dark/light mode etc

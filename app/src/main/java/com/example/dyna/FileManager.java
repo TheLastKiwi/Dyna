@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
+//TODO: Remove all these los in the try catch and raise an error so the user knows what happened
 public class FileManager {
     Context context;
     Profile activeProfile;
@@ -20,22 +21,17 @@ public class FileManager {
         activeProfile = getActiveProfile();
     }
 
-    /* TODO: Probably don't need to pass in profile to all these things
-        Can just read from settings to get active profile
-    */
-
     public void saveSession(Session s){
-        //
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
 
         try {
             // Create or get the profile directory
-            File profileDirectory = new File(context.getFilesDir(), activeProfile.name);
-            if (!profileDirectory.exists()) {
-                profileDirectory.mkdirs();
+            File userDirectory = new File(context.getFilesDir(), activeProfile.name);
+            if (!userDirectory.exists()) {
+                userDirectory.mkdirs();
             }
-            File sessionDirectory = new File(profileDirectory,s.sessionType.toString());
+            File sessionDirectory = new File(userDirectory,s.sessionType.toString());
             if (!sessionDirectory.exists()) {
                 sessionDirectory.mkdirs();
             }

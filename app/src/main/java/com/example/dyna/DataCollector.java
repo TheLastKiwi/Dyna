@@ -58,6 +58,7 @@ public class DataCollector {
             }
         }
     };
+    //TODO REMOVE MISSING PERMISSION TAGS
     @SuppressLint("MissingPermission")
     public void stopScanning(){
         stopCollecting();

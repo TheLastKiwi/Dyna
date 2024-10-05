@@ -42,6 +42,7 @@ public class BTManager extends AppCompatActivity {
             bluetoothActivityResultLauncher.launch(enableBtIntent);
         }
     }
+    //TODO REMOVE MISSING PERMISSION TAGS
     @SuppressLint("MissingPermission")
     public void startBLEScan(ScanCallback scanCallback) {
         ScanSettings settings;
@@ -53,6 +54,7 @@ public class BTManager extends AppCompatActivity {
 
         bleScanner.startScan(filters, settings, scanCallback);
     }
+    //TODO REMOVE MISSING PERMISSION TAGS
     @SuppressLint("MissingPermission")
     public void stopBLEScan(ScanCallback scanCallback){
 //        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {

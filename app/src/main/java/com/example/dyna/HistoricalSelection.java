@@ -47,7 +47,6 @@ public class HistoricalSelection extends Fragment {
             Button button = getButton(session);
 
             //TODO: Customize button style here
-
             buttonContainer.addView(button);
 
         }
