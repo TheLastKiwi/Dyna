@@ -24,9 +24,9 @@ public class LiveDataView extends BaseLiveDataView {
 
     @Override
     public void updateStats(){
-        ((MaterialTextView)view.findViewById(R.id.txtPeakMax)).setText(String.valueOf(session.getSessionMax()));
-        ((MaterialTextView)view.findViewById(R.id.txtAvg)).setText(String.valueOf(session.getCurrentAvg()));
-        ((MaterialTextView)view.findViewById(R.id.txtCurrent)).setText(String.valueOf(session.getLatest()));
+        ((MaterialTextView)view.findViewById(R.id.txtPeakMax)).setText(String.format("%.2f",session.getSessionMax()));
+        ((MaterialTextView)view.findViewById(R.id.txtAvg)).setText(String.format("%.2f",session.getCurrentAvg()));
+        ((MaterialTextView)view.findViewById(R.id.txtCurrent)).setText(String.format("%.2f",session.getLatest()));
     }
 
     public void initializeButtons() {

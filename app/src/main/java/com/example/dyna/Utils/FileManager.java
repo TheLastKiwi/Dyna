@@ -54,7 +54,7 @@ public class FileManager {
         }
         File file = new File(sessionDirectory,name);
 
-        return (Session) getFile(file);
+        return (Session) readFile(file);
     }
 
     public ArrayList<Session> getAllSessions(SessionType sessionType) {
@@ -77,7 +77,7 @@ public class FileManager {
 
         for(File file: allFiles){
             if(file.isFile()){
-                Session s = (Session) getFile(file);
+                Session s = (Session) readFile(file);
                 sessions.add(s);
             }
         }
@@ -93,7 +93,7 @@ public class FileManager {
             return null;
         }
         File userFile = new File(profileDirectory,userName);
-        profile = (Profile) getFile(userFile);
+        profile = (Profile) readFile(userFile);
 
         return profile;
     }
@@ -125,7 +125,7 @@ public class FileManager {
 
         for(File file: allFiles){
             if(file.isFile()){
-                profiles.add((Profile) getFile(file));
+                profiles.add((Profile) readFile(file));
             }
         }
         return profiles;
@@ -165,11 +165,14 @@ public class FileManager {
         for(TimestampedWeight tsw : s.getWeights()){
             csv.append(tsw.getWeight()).append(",").append(tsw.getTimestamp()).append('\n');
         }
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),s.getName() + ".csv");
+        String fileName = s.getName();
+        //Set a default name is they click export without saving first
+        if(fileName == null) fileName = s.getSessionType().toString() + " " + System.currentTimeMillis();
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName + ".csv");
         saveFile(file, csv.toString());
 
     }
-    public Object getFile(File file) {
+    public Object readFile(File file) {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         Object ret = null;
@@ -177,9 +180,8 @@ public class FileManager {
             fis = new FileInputStream(file);
             ois = new ObjectInputStream(fis);
             ret = ois.readObject();
-            return ret;
         } catch (IOException | ClassNotFoundException ignore){
-            file.delete();
+//            file.delete();
             Toast.makeText(context, "Error Reading", Toast.LENGTH_SHORT).show();
         } finally {
             try {
@@ -189,7 +191,7 @@ public class FileManager {
                 Toast.makeText(context,"Error closing file",Toast.LENGTH_SHORT).show();
             }
         }
-        return null;
+        return ret;
     }
     public void saveFile(File file, Object contents){
         FileOutputStream fos = null;
@@ -200,7 +202,6 @@ public class FileManager {
             oos.writeObject(contents);
         } catch (IOException ignored){
             Toast.makeText(context, "Error Saving", Toast.LENGTH_SHORT).show();
-            //TODO: Raise error because it can't write?
         } finally {
             try {
                 if (fos != null) fos.close();

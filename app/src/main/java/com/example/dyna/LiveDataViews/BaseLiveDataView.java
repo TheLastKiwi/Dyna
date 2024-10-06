@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothManager;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.example.dyna.R;
 import com.example.dyna.Utils.DataCollector;
 import com.example.dyna.Utils.FileManager;
 import com.example.dyna.Session;
@@ -19,9 +20,11 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -52,8 +55,8 @@ public abstract class BaseLiveDataView extends Fragment {
         BluetoothManager bluetoothMgr = (BluetoothManager) activity.getSystemService(BLUETOOTH_SERVICE);
 
         //TODO: will pass device name later. Right now we'll hardcode IF_B7
-        //        Intent intent = getIntent();
-        //        final String deviceName = intent.getStringExtra("deviceName");
+        //      Intent intent = getIntent();
+        //      final String deviceName = getArguments().getString("device_name", "IF_B7");
 
         assert getArguments() != null;
         session = (Session)getArguments().get("session");
@@ -65,8 +68,13 @@ public abstract class BaseLiveDataView extends Fragment {
     }
 
     public void setLineLimits(){
+        //TODO: LIGHT/DARK MODE
         YAxis leftAxis = lineChart.getAxisLeft();
-        leftAxis.setAxisMaximum(session.getPlotMax() + 10);
+        leftAxis.setAxisMaximum(session.getPlotMax() + 10f);
+        leftAxis.setAxisMinimum(0f);
+        YAxis rightAxis = lineChart.getAxisRight();
+        rightAxis.setAxisMaximum(session.getPlotMax() + 10f);
+        rightAxis.setAxisMinimum(0f);
 
         LimitLine llPlotMin = new LimitLine(session.getPlotMin(), "Min");
         LimitLine llPlotMax = new LimitLine(session.getPlotMax(), "Max");
@@ -87,6 +95,10 @@ public abstract class BaseLiveDataView extends Fragment {
     int startIndex = 0;
     ArrayList<Entry> entries = new ArrayList<>();
     public void displayChart(){
+        if(isHistorical){
+            displayHistoricalChart();
+            return;
+        }
         LineData lineData;
         LineDataSet lineDataSet;
 
@@ -99,7 +111,7 @@ public abstract class BaseLiveDataView extends Fragment {
 
         long startTime = session.getWeights().get(0).getTimestamp();
         TimestampedWeight latest = session.getWeights().get(session.getWeights().size() - 1);
-        entries.add(new Entry((float) (latest.getTimestamp() - startTime) / 1000, (float)latest.getWeight()/100));
+        entries.add(new Entry((float) (latest.getTimestamp() - startTime) / 1000, latest.getWeight()));
 
         lineDataSet = new LineDataSet(entries,null);
         lineDataSet.setCircleRadius(2f);
@@ -113,7 +125,7 @@ public abstract class BaseLiveDataView extends Fragment {
         LineDataSet lineDataSet;
         long startTime = session.getWeights().get(0).getTimestamp();
         for(TimestampedWeight weight : session.getWeights()){
-            entries.add(new Entry((float) (weight.getTimestamp() - startTime) / 1000, (float)weight.getWeight()/100));
+            entries.add(new Entry((float) (weight.getTimestamp() - startTime) / 1000, weight.getWeight()));
         }
         lineDataSet = new LineDataSet(entries,null);
         lineDataSet.setCircleRadius(2f);
@@ -126,7 +138,7 @@ public abstract class BaseLiveDataView extends Fragment {
         final EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setHint("Enter session name");
-
+        input.setPadding(10,0,0,0);
         // Build the dialog
         new AlertDialog.Builder(requireContext())
                 .setTitle("Save Session")
@@ -134,7 +146,7 @@ public abstract class BaseLiveDataView extends Fragment {
                 .setView(input)
                 .setPositiveButton("Save", (dialog, which) -> {
                     // Get the user input
-                    String fileName = input.getText().toString().trim();
+                    String fileName = input.getText().toString().replace('/','_').trim();
 
                     if (!fileName.isEmpty()) {
                         // Handle the file saving process here
@@ -156,4 +168,43 @@ public abstract class BaseLiveDataView extends Fragment {
         fm.saveSession(session);
         Toast.makeText(requireContext(), "File '" + fileName + "' saved", Toast.LENGTH_SHORT).show();
     }
+
+    public void initializeStartStopSaveExportButtons(Button btnStart, Button btnStop, Button btnSave, Button btnExport) {
+        if(!isHistorical) {
+            btnStart.setOnClickListener(v -> {
+                btnExport.setEnabled(false);
+                btnSave.setEnabled(false);
+                btnStop.setEnabled(true);
+                v.setEnabled(false);
+                dc.startCollecting();
+            });
+            btnStop.setOnClickListener(v -> {
+                Log.d("stop", "scan stopped");
+                btnExport.setEnabled(true);
+                btnSave.setEnabled(true);
+                v.setEnabled(false);
+                dc.stopCollecting();
+            });
+
+            btnSave.setOnClickListener(v -> {
+                Log.d("Save", "Saving");
+                showSaveSessionDialog();
+                if(session.getName() != null){
+                    v.setEnabled(false);
+                }
+            });
+
+        }else {
+            //Hides start/stop/save when in historical view
+            //TODO: Reposition export button?
+            btnStart.setVisibility(View.INVISIBLE);
+            btnStop.setVisibility(View.INVISIBLE);
+            btnSave.setVisibility(View.INVISIBLE);
+        }
+        btnExport.setOnClickListener(v -> {
+            FileManager fm = new FileManager(requireContext());
+            fm.exportSessionToCSV(session);
+        });
+    }
+
 }

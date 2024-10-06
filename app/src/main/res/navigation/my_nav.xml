@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_homeScreen_to_historicalSelection"
             app:destination="@id/historicalSelection" />
+        <action
+            android:id="@+id/action_homeScreen_to_criticalForceLiveData"
+            app:destination="@id/criticalForceLiveData" />
     </fragment>
     <fragment
         android:id="@+id/liveDataView"
@@ -81,10 +84,22 @@
         <action
             android:id="@+id/action_historicalSelection_to_peakLoadLiveData"
             app:destination="@id/peakLoadLiveData" />
+        <action
+            android:id="@+id/action_historicalSelection_to_criticalForceLiveData"
+            app:destination="@id/criticalForceLiveData" />
     </fragment>
     <fragment
         android:id="@+id/createProfile"
         android:name="com.example.dyna.CreateProfile"
         android:label="activity_create_profile"
         tools:layout="@layout/create_profile_fragment" />
+    <fragment
+        android:id="@+id/criticalForceLiveData"
+        android:name="com.example.dyna.LiveDataViews.CriticalForceLiveData"
+        android:label="critical_force_live_data_fragment"
+        tools:layout="@layout/critical_force_live_data_fragment" >
+        <action
+            android:id="@+id/action_criticalForceLiveData_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
 </navigation>

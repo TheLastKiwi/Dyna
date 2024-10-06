@@ -9,10 +9,28 @@ public class Session implements Serializable {
     private List<TimestampedWeight> weights;
 
     private String name;
-    private int sessionMax = 0;
-    private int currentAvg = 0;
-    private int weightSum = 0;
+    private float sessionMax = 0;
+    private float currentAvg = 0;
+    private float weightSum = 0;
+    private float CF;
 
+    public float getCF() {
+        return CF;
+    }
+
+    public void setCF(float CF) {
+        this.CF = CF;
+    }
+
+    public float getWP() {
+        return WP;
+    }
+
+    public void setWP(float WP) {
+        this.WP = WP;
+    }
+
+    private float WP;
     int enduranceDuration;
 
     private int numSets;
@@ -41,7 +59,7 @@ public class Session implements Serializable {
         weightSum += timestampedWeight.getWeight();
         currentAvg = weightSum / weights.size();
     }
-    public int getLatest(){
+    public float getLatest(){
         if(weights.isEmpty()) return 0;
         return weights.get(weights.size()-1).getWeight();
     }
@@ -61,15 +79,15 @@ public class Session implements Serializable {
         return name;
     }
 
-    public int getSessionMax() {
+    public float getSessionMax() {
         return sessionMax;
     }
 
-    public int getCurrentAvg() {
+    public float getCurrentAvg() {
         return currentAvg;
     }
 
-    public int getWeightSum() {
+    public float getWeightSum() {
         return weightSum;
     }
 

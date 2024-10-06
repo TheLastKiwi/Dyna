@@ -24,23 +24,6 @@ public class HomeScreen extends Fragment {
         view = inflater.inflate(R.layout.home_screen_fragment,container, false);
         fm = new FileManager(requireContext());
 
-        String activeUser = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE).getString("ActiveUser", null);
-        //If no profile present, create a default profile
-
-        if(activeUser == null) {
-
-            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("ActiveUser", "Default");
-            editor.apply();
-            activeUser = "Default";
-            Profile defaultProfile = new Profile("Default");
-            fm.saveProfile(defaultProfile);
-        }
-        Profile activeProfile = fm.getProfile(activeUser);
-
-        ((TextView)view.findViewById(R.id.txtCurrentProfile)).setText(activeProfile.getDisplayName());
-
         NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
 
         view.findViewById(R.id.btnLiveData).setOnClickListener(view -> {
@@ -66,7 +49,17 @@ public class HomeScreen extends Fragment {
         view.findViewById(R.id.btnProfile).setOnClickListener(view -> {
             navController.navigate(R.id.action_homeScreen_to_swapProfile);
         });
-        //Load settings from somewhere to set Profile based on last activity
+        view.findViewById(R.id.btnCriticalForce).setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            Session session = new Session(SessionType.CRITICAL_FORCE);
+            session.setNumReps(24);
+            session.setNumSets(1);
+            session.setRestTime(3);
+            session.setWorkTime(7);
+            session.setCountdown(3);
+            bundle.putSerializable("session", session);
+            navController.navigate(R.id.action_homeScreen_to_criticalForceLiveData, bundle);
+        });
         return view;
     }
 }

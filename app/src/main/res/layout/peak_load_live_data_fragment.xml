@@ -11,7 +11,6 @@
         android:id="@+id/lineChartPeakData"
         android:layout_width="match_parent"
         android:layout_height="226dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -31,17 +30,20 @@
         android:layout_height="51dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
+        android:enabled="false"
         android:text="Stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/btnPeakSave"
         android:layout_width="175dp"
         android:layout_height="51dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="12dp"
+        android:enabled="false"
         android:text="Save"
         app:layout_constraintBottom_toTopOf="@+id/btnPeakStart"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
@@ -78,10 +80,12 @@
 
     <Button
         android:id="@+id/btnPeakExport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="12dp"
+        android:enabled="false"
         android:text="Export"
-        app:layout_constraintBottom_toTopOf="@+id/btnPeakSave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/btnPeakStop"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

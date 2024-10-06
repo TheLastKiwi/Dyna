@@ -62,11 +62,11 @@ public class RepeatersSettings extends Fragment {
         setOptions(view.findViewById(R.id.npRest), timeOptionsArray);
         setOptions(view.findViewById(R.id.npPause), timeOptionsArray);
         setOptions(view.findViewById(R.id.npCountdown), timeOptionsArray);
-        ((NumberPicker) view.findViewById(R.id.npSets)).setValue(3);
+        ((NumberPicker) view.findViewById(R.id.npSets)).setValue(2);
         ((NumberPicker) view.findViewById(R.id.npReps)).setValue(3);
-        ((NumberPicker) view.findViewById(R.id.npWork)).setValue(6);
-        ((NumberPicker) view.findViewById(R.id.npRest)).setValue(5);
-        ((NumberPicker) view.findViewById(R.id.npPause)).setValue(10);
+        ((NumberPicker) view.findViewById(R.id.npWork)).setValue(4);
+        ((NumberPicker) view.findViewById(R.id.npRest)).setValue(3);
+        ((NumberPicker) view.findViewById(R.id.npPause)).setValue(9);
         ((NumberPicker) view.findViewById(R.id.npCountdown)).setValue(3);
 
         SwitchMaterial switchPlot = view.findViewById(R.id.switchPlot);

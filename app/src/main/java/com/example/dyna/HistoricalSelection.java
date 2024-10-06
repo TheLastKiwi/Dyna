@@ -32,11 +32,15 @@ public class HistoricalSelection extends Fragment {
     }
 
     public void initializeButtons() {
-        view.findViewById(R.id.btnHistoricalPeak).setOnClickListener(view -> {
+        //Dynamically add all buttons to the layout??? Iterate over SessionType? Sounds good to me
+        view.findViewById(R.id.btnHistoricalPeak).setOnClickListener(v -> {
             addButtonsToLayout(SessionType.PEAK_LOAD);
         });
-        view.findViewById(R.id.btnHistoricalRepeater).setOnClickListener(view -> {
+        view.findViewById(R.id.btnHistoricalRepeater).setOnClickListener(v -> {
             addButtonsToLayout(SessionType.REPEATER);
+        });
+        view.findViewById(R.id.btnHistoricalCritical).setOnClickListener(v -> {
+            addButtonsToLayout(SessionType.CRITICAL_FORCE);
         });
     }
 
@@ -71,6 +75,9 @@ public class HistoricalSelection extends Fragment {
                     break;
                 case REPEATER:
                     navController.navigate(R.id.action_historicalSelection_to_repeaterLiveData, bundle);
+                    break;
+                case CRITICAL_FORCE:
+                    navController.navigate(R.id.action_historicalSelection_to_criticalForceLiveData, bundle);
                     break;
                 default:
                     // Uhoh

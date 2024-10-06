@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LiveDataViews.CriticalForceLiveData">
+
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChartRepeater"
+        android:id="@+id/lineChartCritical"
         android:layout_width="match_parent"
         android:layout_height="226dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -28,18 +28,20 @@
         android:id="@+id/btnCriticalSave"
         android:layout_width="175dp"
         android:layout_height="51dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="12dp"
+        android:enabled="false"
         android:text="Save"
         app:layout_constraintBottom_toTopOf="@+id/btnCriticalStart"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnRepeaterStop"
+        android:id="@+id/btnCriticalStop"
         android:layout_width="175dp"
         android:layout_height="51dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
+        android:enabled="false"
         android:text="Stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -53,6 +55,7 @@
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvRep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -76,7 +79,7 @@
                     tools:layout_editor_absoluteY="293dp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtRepeaterRepNum"
+                    android:id="@+id/txtCriticalRepNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8sp"
@@ -98,6 +101,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -121,7 +125,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtRepeaterCurrent"
+                    android:id="@+id/txtCriticalCurrent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8sp"
@@ -130,6 +134,81 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView9"
                     app:layout_constraintStart_toEndOf="@+id/textView9"
                     app:layout_constraintTop_toTopOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="0.0" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvCF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Critical Force:"
+                    android:textSize="36sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtCF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8sp"
+                    android:text="0"
+                    android:textSize="48sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                    app:layout_constraintStart_toEndOf="@+id/textView17"
+                    app:layout_constraintTop_toTopOf="@+id/textView17"
+                    app:layout_constraintVertical_bias="0.0" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvWP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="W':"
+                    android:textSize="48sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtWP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8sp"
+                    android:text="0"
+                    android:textSize="48sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                    app:layout_constraintStart_toEndOf="@+id/textView18"
+                    app:layout_constraintTop_toTopOf="@+id/textView18"
                     app:layout_constraintVertical_bias="0.0" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -142,7 +221,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/lineChartRepeater"
+        app:layout_constraintTop_toBottomOf="@+id/lineChartCritical"
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.textview.MaterialTextView
@@ -155,7 +234,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.375"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lineChartRepeater" />
+            app:layout_constraintTop_toBottomOf="@+id/lineChartCritical" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtCountdown"
@@ -169,4 +248,15 @@
             app:layout_constraintStart_toEndOf="@+id/txtPullRest"
             app:layout_constraintTop_toTopOf="@+id/txtPullRest" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCriticalExport"
+        android:layout_width="175dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="12dp"
+        android:enabled="false"
+        android:text="Export"
+        app:layout_constraintBottom_toTopOf="@+id/btnCriticalStop"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

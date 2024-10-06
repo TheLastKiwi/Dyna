@@ -55,7 +55,7 @@ public class DataCollector {
                 Log.d("Data",Arrays.toString(data));
                 //TODO: Maybe we should divide by 100 here because that's the real data it's reading
                 // And store in reading what unit the scale is outputting so we can display that too
-                TimestampedWeight reading = new TimestampedWeight(cstu(data[10]) * 256 + cstu(data[11]));
+                TimestampedWeight reading = new TimestampedWeight((cstu(data[10]) * 256 + cstu(data[11]))/100f);
                 viewCallback.accept(reading);
             }
         }

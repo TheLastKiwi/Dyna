@@ -7,13 +7,13 @@ public class TimestampedWeight implements Serializable {
         return timestamp;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
     private final long timestamp;
-    private final int weight;
-    public TimestampedWeight(int w){
+    private final float weight;
+    public TimestampedWeight(float w){
         this.timestamp = System.currentTimeMillis();
         this.weight = w;
     }
