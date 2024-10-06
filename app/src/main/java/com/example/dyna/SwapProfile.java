@@ -59,5 +59,6 @@ public class SwapProfile extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("ActiveUser", userName);
         editor.apply();
+        ((Button)getActivity().findViewById(R.id.btnTmpProfile)).setText(userName);
     }
 }

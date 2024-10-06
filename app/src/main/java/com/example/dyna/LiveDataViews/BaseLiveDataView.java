@@ -29,6 +29,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -123,22 +125,24 @@ public abstract class BaseLiveDataView extends Fragment {
     public void displayHistoricalChart(){
         LineData lineData;
         LineDataSet lineDataSet;
-        long startTime = session.getWeights().get(0).getTimestamp();
-        for(TimestampedWeight weight : session.getWeights()){
-            entries.add(new Entry((float) (weight.getTimestamp() - startTime) / 1000, weight.getWeight()));
+        if(!session.getWeights().isEmpty()) {
+            long startTime = session.getWeights().get(0).getTimestamp();
+            for (TimestampedWeight weight : session.getWeights()) {
+                entries.add(new Entry((float) (weight.getTimestamp() - startTime) / 1000, weight.getWeight()));
+            }
+            lineDataSet = new LineDataSet(entries, null);
+            lineDataSet.setCircleRadius(2f);
+            lineData = new LineData(lineDataSet);
+            lineChart.setData(lineData);
+            lineChart.invalidate();
         }
-        lineDataSet = new LineDataSet(entries,null);
-        lineDataSet.setCircleRadius(2f);
-        lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
-        lineChart.invalidate();
     }
 
     void showSaveSessionDialog() {
         final EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setHint("Enter session name");
-        input.setPadding(10,0,0,0);
+
         // Build the dialog
         new AlertDialog.Builder(requireContext())
                 .setTitle("Save Session")
@@ -200,11 +204,17 @@ public abstract class BaseLiveDataView extends Fragment {
             btnStart.setVisibility(View.INVISIBLE);
             btnStop.setVisibility(View.INVISIBLE);
             btnSave.setVisibility(View.INVISIBLE);
+            btnExport.setEnabled(true);
         }
         btnExport.setOnClickListener(v -> {
             FileManager fm = new FileManager(requireContext());
             fm.exportSessionToCSV(session);
         });
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        dc.stopCollecting();
     }
 
 }

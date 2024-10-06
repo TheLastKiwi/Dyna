@@ -35,12 +35,6 @@ public class CriticalForceLiveData extends BaseLiveDataView {
             ((MaterialTextView) view.findViewById(R.id.txtWP)).setText(String.format("%.2f",session.getWP()));
             view.findViewById(R.id.mcvRep).setVisibility(View.GONE);
             view.findViewById(R.id.mcvWeight).setVisibility(View.GONE);
-            ((MaterialTextView) view.findViewById(R.id.txtCF)).setOnClickListener(v ->  {
-                float[] cfwp = getCFWP();
-                ((MaterialTextView)v).setText(String.format("%.2f",cfwp[0]));
-                ((MaterialTextView)view.findViewById(R.id.txtWP)).setText(String.format("%.2f",cfwp[1]));
-
-            });
             displayChart();
             updateStats();
         } else {
@@ -168,6 +162,7 @@ public class CriticalForceLiveData extends BaseLiveDataView {
         //You're supposed to calculate std dev but I mean if you're giving it your all then you're
         //pulling as hard as you can as long as you can. If you're not giving it your all then the
         //value is pointless anyways. 1 std dev is just to remove the fluctuations which this does
+        //TODO: I guess it does take out the spikes at the start too. Meh, I'll implement it later.
         List<TimestampedWeight> weights = session.getWeights();
         long ending = weights.get(weights.size() - 1).getTimestamp();
         int startingIndex = weights.size() - 1;
@@ -186,7 +181,7 @@ public class CriticalForceLiveData extends BaseLiveDataView {
         }
         float CF = sum/count;
         float WP = 0;
-        for(int i = Math.max(1,startingIndex); i < weights.size(); i++){
+        for(int i = 1; i < weights.size(); i++){
             if(weights.get(i).getWeight() > CF){
                 WP += weights.get(i).getWeight() * (weights.get(i).getTimestamp() - weights.get(i-1).getTimestamp())/1000;
                 count++;

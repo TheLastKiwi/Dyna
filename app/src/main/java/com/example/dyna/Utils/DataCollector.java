@@ -1,9 +1,11 @@
 package com.example.dyna.Utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
+import android.content.Context;
 import android.util.Log;
 
 import com.example.dyna.TimestampedWeight;
@@ -29,12 +31,15 @@ public class DataCollector {
     }
 
     boolean collectingData = false;
-
+    boolean bleConnectionMode = true;
     //ONLY WH-C06 devices named "IF_B7
     public void startScan(){
         if("IF_B7".equals(deviceName)){
+            bleConnectionMode = true;
             btManager.startBLEScan(scanCallback);
         } else {
+            bleConnectionMode = false;
+            //Connect to device, probably earlier than at this point.
             btManager.startReadingBTConnData();
         }
     }
