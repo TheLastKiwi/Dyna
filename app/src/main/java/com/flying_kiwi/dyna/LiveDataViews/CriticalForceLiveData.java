@@ -1,5 +1,6 @@
 package com.flying_kiwi.dyna.LiveDataViews;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;

@@ -24,35 +24,6 @@
         android:theme="@style/Theme.Dyna"
         tools:targetApi="31" >
         <activity
-            android:name=".LiveDataViews.CriticalForceLiveData"
-            android:exported="false" />
-        <activity
-            android:name=".CreateProfile"
-            android:exported="false" />
-        <activity
-            android:name=".SwapProfile"
-            android:exported="false" />
-        <activity
-            android:name=".HistoricalSelection"
-            android:exported="false" />
-        <activity
-            android:name=".LiveDataViews.PeakLoadLiveData"
-            android:exported="false" />
-        <activity
-            android:name=".LiveDataViews.LiveDataView"
-            android:exported="false" />
-        <activity
-            android:name=".LiveDataViews.RepeaterLiveData"
-            android:exported="false" />
-        <activity
-            android:name=".Settings.RepeatersSettings"
-            android:exported="false"
-            android:label="@string/title_activity_repeaters_settings" />
-        <activity
-            android:name=".Settings.EnduranceSettings"
-            android:exported="false"
-            android:label="@string/title_activity_endurance_settings" />
-        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
@@ -61,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LiveDataViews.BaseLiveDataView" />
     </application>
 
 </manifest>
