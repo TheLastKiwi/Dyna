@@ -1,4 +1,4 @@
-App for climbers to test and monitor finger strength. It works with the [WH-C06 bluetooth crane scale](https://www.aliexpress.us/item/3256806312872948.html) that you can buy on AliExpress for about $30. There may be ones on amazon but at this time the bluetooth one is not available there.
+App for climbers to test and monitor finger strength. It works with the [WH-C06 bluetooth crane scale](https://www.aliexpress.us/item/3256806312872948.html)(Make sure it has bluetooth, there are options with and without) that you can buy on AliExpress for about $30. There may be ones on amazon but at this time the bluetooth one is not available there.
 
 **Current features :**
   1. Live data view. Just see what you're pulling and gives you a max and average for the session.
