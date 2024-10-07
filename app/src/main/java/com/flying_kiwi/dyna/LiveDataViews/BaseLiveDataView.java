@@ -115,7 +115,12 @@ public abstract class BaseLiveDataView extends Fragment {
         lineDataSet = new LineDataSet(entries,null);
         lineDataSet.setCircleRadius(2f);
         lineData = new LineData(lineDataSet);
+        //If dark mode set colors of graph numbers and chart line
+//        lineChart.setcolo
+
         lineChart.setData(lineData);
+        lineChart.getLegend().setEnabled(false);
+        lineChart.setDescription(null);
         lineChart.invalidate();
     }
 
@@ -131,6 +136,8 @@ public abstract class BaseLiveDataView extends Fragment {
             lineDataSet.setCircleRadius(2f);
             lineData = new LineData(lineDataSet);
             lineChart.setData(lineData);
+            lineChart.getLegend().setEnabled(false);
+            lineChart.setDescription(null);
             lineChart.invalidate();
         }
     }

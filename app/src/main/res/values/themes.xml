@@ -14,5 +14,8 @@
         <item name="cardElevation">4dp</item>
         <item name="cardBackgroundColor">@color/muted_green</item>
     </style>
+    <style name="LineChartStyle">
+        <!--Can I do anything here? Probably not-->
+    </style>
     <style name="Theme.Dyna" parent="Base.Theme.Dyna" />
 </resources>
