@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dyna"
+    namespace = "com.flying_kiwi.dyna"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.dyna"
+        applicationId = "com.flying_kiwi.dyna"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

@@ -6,7 +6,7 @@
     app:startDestination="@id/homeScreen">
     <fragment
         android:id="@+id/homeScreen"
-        android:name="com.example.dyna.HomeScreen"
+        android:name="com.flying_kiwi.dyna.HomeScreen"
         android:label="HomeScreen" >
         <action
             android:id="@+id/action_homeScreen_to_swapProfile"
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/liveDataView"
-        android:name="com.example.dyna.LiveDataViews.LiveDataView"
+        android:name="com.flying_kiwi.dyna.LiveDataViews.LiveDataView"
         android:label="LiveDataView" >
         <action
             android:id="@+id/action_liveDataView_to_homeScreen"
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/repeatersSettings"
-        android:name="com.example.dyna.Settings.RepeatersSettings"
+        android:name="com.flying_kiwi.dyna.Settings.RepeatersSettings"
         android:label="RepeatersSettings" >
         <action
             android:id="@+id/action_repeatersSettings_to_repeaterLiveData"
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/swapProfile"
-        android:name="com.example.dyna.SwapProfile"
+        android:name="com.flying_kiwi.dyna.SwapProfile"
         android:label="activity_swap_profile"
         tools:layout="@layout/swap_profile_fragment" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/peakLoadLiveData"
-        android:name="com.example.dyna.LiveDataViews.PeakLoadLiveData"
+        android:name="com.flying_kiwi.dyna.LiveDataViews.PeakLoadLiveData"
         android:label="peak_load_live_data"
         tools:layout="@layout/peak_load_live_data_fragment" >
         <action
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/repeaterLiveData"
-        android:name="com.example.dyna.LiveDataViews.RepeaterLiveData"
+        android:name="com.flying_kiwi.dyna.LiveDataViews.RepeaterLiveData"
         android:label="repeater_live_data"
         tools:layout="@layout/repeater_live_data_fragment" >
         <action
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/historicalSelection"
-        android:name="com.example.dyna.HistoricalSelection"
+        android:name="com.flying_kiwi.dyna.HistoricalSelection"
         android:label="historcial_selection"
         tools:layout="@layout/historical_selection_fragment" >
         <action
@@ -90,12 +90,12 @@
     </fragment>
     <fragment
         android:id="@+id/createProfile"
-        android:name="com.example.dyna.CreateProfile"
+        android:name="com.flying_kiwi.dyna.CreateProfile"
         android:label="activity_create_profile"
         tools:layout="@layout/create_profile_fragment" />
     <fragment
         android:id="@+id/criticalForceLiveData"
-        android:name="com.example.dyna.LiveDataViews.CriticalForceLiveData"
+        android:name="com.flying_kiwi.dyna.LiveDataViews.CriticalForceLiveData"
         android:label="critical_force_live_data_fragment"
         tools:layout="@layout/critical_force_live_data_fragment" >
         <action
