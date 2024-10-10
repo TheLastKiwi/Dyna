@@ -39,7 +39,7 @@ public class CriticalForceLiveData extends BaseLiveDataView {
             view.findViewById(R.id.mcvWeight).setVisibility(View.GONE);
 
             //Set horizontal line for CF
-            LimitLine limitLine = new LimitLine(50f, ""); // Position at Y = 50
+            LimitLine limitLine = new LimitLine(session.getCF(), ""); // Position at Y = 50
             limitLine.setLineWidth(2f);
             limitLine.setLineColor(Color.YELLOW);  // Set line color
             limitLine.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
@@ -104,6 +104,8 @@ public class CriticalForceLiveData extends BaseLiveDataView {
         final ArrayList<Integer> restWork = new ArrayList<>();
         restWork.add(session.getCountdown());
         int pos = 1;
+//        session.setWorkTime(2);
+//        session.setRestTime(1);
         for(int s = 0; s < session.getNumSets(); s++){
             for(int r = 0; r < session.getNumReps(); r++){
                 restWork.add(session.getWorkTime() + restWork.get(pos++-1));
