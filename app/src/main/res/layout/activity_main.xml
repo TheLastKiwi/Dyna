@@ -7,7 +7,7 @@
 
     <Button
         android:id="@+id/btnTempBack"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="51dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"

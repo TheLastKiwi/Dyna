@@ -119,6 +119,7 @@ public class RepeatersSettings extends Fragment {
         final EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setHint("Enter session name");
+        input.setHeight(51);
 
         // Build the dialog
         new AlertDialog.Builder(requireContext())

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.flying_kiwi.dyna.R;
 import com.flying_kiwi.dyna.TimestampedWeight;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.YAxis;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
@@ -35,6 +37,16 @@ public class CriticalForceLiveData extends BaseLiveDataView {
             ((MaterialTextView) view.findViewById(R.id.txtWP)).setText(String.format("%.2f",session.getWP()));
             view.findViewById(R.id.mcvRep).setVisibility(View.GONE);
             view.findViewById(R.id.mcvWeight).setVisibility(View.GONE);
+
+            //Set horizontal line for CF
+            LimitLine limitLine = new LimitLine(50f, ""); // Position at Y = 50
+            limitLine.setLineWidth(2f);
+            limitLine.setLineColor(Color.YELLOW);  // Set line color
+            limitLine.enableDashedLine(10f, 10f, 0f); // Optional: dashed line
+            YAxis leftAxis = lineChart.getAxisLeft();
+            leftAxis.addLimitLine(limitLine);
+
+            lineChart.getAxisRight().setEnabled(false);
             displayChart();
             updateStats();
         } else {

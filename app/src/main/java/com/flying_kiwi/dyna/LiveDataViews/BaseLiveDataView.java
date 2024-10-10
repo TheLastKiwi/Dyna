@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import android.text.InputType;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,8 +145,12 @@ public abstract class BaseLiveDataView extends Fragment {
 
     void showSaveSessionDialog() {
         final EditText input = new EditText(requireContext());
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         input.setHint("Enter session name");
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 51, getResources().getDisplayMetrics());
+        input.setHeight(height);
+        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
+        input.setPadding(padding,0,padding,0);
 
         // Build the dialog
         new AlertDialog.Builder(requireContext())

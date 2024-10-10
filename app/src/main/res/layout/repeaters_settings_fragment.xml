@@ -119,8 +119,8 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:scaleX="1.7"
-                        android:scaleY="1.7" />
+                        android:scaleX="1.75"
+                        android:scaleY="1.75" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -152,8 +152,8 @@
 
                     <LinearLayout
                         android:id="@+id/linearLayout2"
-                        android:layout_width="0dp"
-                        android:layout_height="22dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -212,8 +212,8 @@
                                 android:id="@+id/npReps"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleX="1.5"
-                                android:scaleY="1.5" />
+                                android:scaleX="1.75"
+                                android:scaleY="1.75" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -242,8 +242,8 @@
                                 android:id="@+id/npRest"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleX="2"
-                                android:scaleY="2" />
+                                android:scaleX="1.75"
+                                android:scaleY="1.75" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </LinearLayout>
@@ -286,8 +286,8 @@
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:focusable="auto"
-                        android:scaleX="1.7"
-                        android:scaleY="1.7" />
+                        android:scaleX="1.75"
+                        android:scaleY="1.75" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -406,8 +406,8 @@
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             android:focusable="auto"
-                            android:scaleX="1.7"
-                            android:scaleY="1.7"
+                            android:scaleX="1.75"
+                            android:scaleY="1.75"
                             app:layout_constraintBottom_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView8"
                             app:layout_constraintStart_toEndOf="@+id/com.google.android.material.textview.MaterialTextView8"
                             app:layout_constraintTop_toTopOf="@+id/com.google.android.material.textview.MaterialTextView8" />
@@ -431,8 +431,8 @@
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             android:focusable="auto"
-                            android:scaleX="1.7"
-                            android:scaleY="1.7"
+                            android:scaleX="1.75"
+                            android:scaleY="1.75"
                             app:layout_constraintBottom_toBottomOf="@+id/com.google.android.material.textview.MaterialTextView8"
                             app:layout_constraintStart_toEndOf="@+id/com.google.android.material.textview.MaterialTextView8"
                             app:layout_constraintTop_toTopOf="@+id/com.google.android.material.textview.MaterialTextView8" />
