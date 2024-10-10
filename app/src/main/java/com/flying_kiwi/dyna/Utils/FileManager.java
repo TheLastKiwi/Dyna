@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.flying_kiwi.dyna.Profile;
 import com.flying_kiwi.dyna.Session;
 import com.flying_kiwi.dyna.SessionType;
+import com.flying_kiwi.dyna.Settings.PresetSettings;
 import com.flying_kiwi.dyna.TimestampedWeight;
 
 import java.io.File;
@@ -41,7 +42,7 @@ public class FileManager {
             // Create the file in the subdirectory
             File file = new File(sessionDirectory, s.getName());
 
-            saveFile(file,s);
+            saveFile(file,s, true);
     }
     public Session getSession(SessionType sessionType, String name){
         File profileDirectory = new File(context.getFilesDir(), activeProfile.getName());
@@ -107,7 +108,7 @@ public class FileManager {
             }
             // Create the file in the subdirectory
             File file = new File(profileDirectory, profile.getName());
-            saveFile(file, profile);
+            saveFile(file, profile, false);
     }
 
     public ArrayList<Profile> getAllProfiles() {
@@ -169,8 +170,9 @@ public class FileManager {
         //Set a default name is they click export without saving first
         if(fileName == null) fileName = s.getSessionType().toString() + " " + System.currentTimeMillis();
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName + ".csv");
-        saveFile(file, csv.toString());
-
+        if(saveFile(file, csv.toString(), false)) {
+            Toast.makeText(context, "File saved at: " + file.getPath(), Toast.LENGTH_LONG).show();
+        }
     }
     public Object readFile(File file) {
         FileInputStream fis = null;
@@ -193,7 +195,7 @@ public class FileManager {
         }
         return ret;
     }
-    public void saveFile(File file, Object contents){
+    public boolean saveFile(File file, Object contents, boolean showToast){
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
@@ -202,6 +204,7 @@ public class FileManager {
             oos.writeObject(contents);
         } catch (IOException ignored){
             Toast.makeText(context, "Error Saving", Toast.LENGTH_SHORT).show();
+            return false;
         } finally {
             try {
                 if (fos != null) fos.close();
@@ -210,5 +213,56 @@ public class FileManager {
                 Toast.makeText(context,"Error closing file",Toast.LENGTH_SHORT).show();
             }
         }
+        if(showToast) Toast.makeText(context,"Session saved",Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    public boolean savePreset(PresetSettings settings, SessionType sessionType) {
+        File userDirectory = new File(context.getFilesDir(), activeProfile.getName());
+        if (!userDirectory.exists()) {
+            userDirectory.mkdirs();
+        }
+        File sessionDirectory = new File(userDirectory,sessionType.toString());
+        if (!sessionDirectory.exists()) {
+            sessionDirectory.mkdirs();
+        }
+        File presetDirectory = new File(sessionDirectory,"preset");
+        if (!presetDirectory.exists()) {
+            presetDirectory.mkdirs();
+        }
+        // Create the file in the subdirectory
+        File file = new File(presetDirectory, settings.getName());
+        if(saveFile(file, settings, false)){
+            Toast.makeText(context,"Saved",Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public PresetSettings getPreset(String name, SessionType sessionType){
+        File presetFile = new File(context.getFilesDir()+"/"+sessionType.toString()+"/preset",name);
+        return (PresetSettings) readFile(presetFile);
+    }
+
+    public ArrayList<PresetSettings> getAllPresets(SessionType sessionType) {
+        File presetDirectory = new File(context.getFilesDir()+"/" + activeProfile.getName() + "/" +sessionType.toString()+"/preset");
+        if (!presetDirectory.exists()) {
+            presetDirectory.mkdirs();
+        }
+
+        File[] allFiles = null;
+        if (presetDirectory.exists() && presetDirectory.isDirectory()) {
+            // List all files in the directory
+            allFiles = presetDirectory.listFiles();
+        }
+        ArrayList<PresetSettings> presets = new ArrayList<>();
+
+        for(File file: allFiles){
+            if(file.isFile()){
+                presets.add((PresetSettings) readFile(file));
+            }
+        }
+        return presets;
     }
 }

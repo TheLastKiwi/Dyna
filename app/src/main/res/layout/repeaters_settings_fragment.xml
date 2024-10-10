@@ -69,6 +69,7 @@
                         android:layout_height="51dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
+                        android:layout_weight="1"
                         android:minWidth="100dp"
                         android:textSize="28sp" />
 
@@ -78,6 +79,8 @@
                         android:layout_height="51dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:maxWidth="120dp"
                         android:text="Save" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

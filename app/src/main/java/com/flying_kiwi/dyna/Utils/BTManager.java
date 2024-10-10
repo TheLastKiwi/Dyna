@@ -1,5 +1,6 @@
 package com.flying_kiwi.dyna.Utils;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 
 import android.bluetooth.BluetoothManager;
@@ -7,9 +8,11 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
+import android.content.pm.PackageManager;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;

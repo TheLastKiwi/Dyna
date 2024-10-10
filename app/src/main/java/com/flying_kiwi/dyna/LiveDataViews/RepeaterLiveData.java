@@ -26,6 +26,12 @@ public class RepeaterLiveData extends BaseLiveDataView {
 
 
         lineChart = view.findViewById(R.id.lineChartRepeater);
+        if(isHistorical) {
+            displayChart();
+            updateStats();
+        } else {
+            timeLimit = session.getWorkTime();
+        }
         initializeStartStopSaveExportButtons(
                 view.findViewById(R.id.btnRepeaterStart),
                 view.findViewById(R.id.btnRepeaterStop),

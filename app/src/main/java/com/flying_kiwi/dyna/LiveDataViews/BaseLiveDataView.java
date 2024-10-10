@@ -61,7 +61,7 @@ public abstract class BaseLiveDataView extends Fragment {
         session = (Session)getArguments().get("session");
         isHistorical= getArguments().getBoolean("historical", false);
 
-        dc = new DataCollector(bluetoothMgr, callback);
+        if(!isHistorical) dc = new DataCollector(bluetoothMgr, callback);
         return null;
 
     }
