@@ -10,6 +10,7 @@ App for climbers to test and monitor finger strength. It works with the WH-C06 b
   5. Save sessions to view them later in the app
   6. Export the data to CSV. If you want to save the data to your computer to do further calculations or visualizations or if you simply want to share it with others.
   7. Profiles to quickly and easily swap between people using the device. Admittedly the profiles are barebones but since everything is only stored locally and not uploaded anywhere, there's not really a need to have more than just a name.
+  8. Preset settings for repeaters.
 
 **Future features:**
   1. Much better UI. Right now it's just functional.
