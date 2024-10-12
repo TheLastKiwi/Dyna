@@ -30,16 +30,24 @@ public class LiveDataView extends BaseLiveDataView {
     }
 
     public void initializeButtons() {
-        view.findViewById(R.id.btnLdvStart).setOnClickListener(view -> {
-            Log.d("Obj",dc.toString());
-            Log.d("ButtonPress", "Start Collecting");
-            dc.startCollecting();
-        });
-        view.findViewById(R.id.btnLdvStop).setOnClickListener(view -> {
+        initializeStartStopSaveExportButtons(view.findViewById(R.id.btnLdvStart),view.findViewById(R.id.btnLdvStop),view.findViewById(R.id.btnLdvSave),view.findViewById(R.id.btnLdvExport));
+
+        view.findViewById(R.id.btnLdvStop).setOnClickListener(v -> {
             Log.d("stop", "scan stopped");
+            view.findViewById(R.id.btnLdvExport).setEnabled(true);
+            view.findViewById(R.id.btnLdvSave).setEnabled(true);
+            view.findViewById(R.id.btnLdvStart).setEnabled(true);
+            v.setEnabled(false);
             dc.stopCollecting();
         });
+
+        view.findViewById(R.id.btnLdvReset).setOnClickListener(view -> {
+            dc.stopCollecting();
+            //reset everthing. Min/Max/avg weights
+        });
+
     }
+
     @Override
     int getSaveButtonId() {
         //TODO: IMPLEMENT if we want to save live data sessions

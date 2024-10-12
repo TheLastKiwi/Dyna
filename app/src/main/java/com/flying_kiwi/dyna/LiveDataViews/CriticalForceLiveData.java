@@ -68,6 +68,7 @@ public class CriticalForceLiveData extends BaseLiveDataView {
         });
         view.findViewById(R.id.btnCriticalStart).setOnClickListener(v -> {
             view.findViewById(R.id.btnCriticalStop).setEnabled(true);
+            v.setEnabled(false);
             startTimer();
         });
         return view;

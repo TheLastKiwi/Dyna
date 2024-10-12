@@ -48,6 +48,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
         });
         view.findViewById(R.id.btnRepeaterStart).setOnClickListener(v -> {
             view.findViewById(R.id.btnRepeaterStop).setEnabled(true);
+            v.setEnabled(false);
             startTimer();
         });
 
