@@ -60,7 +60,7 @@ public abstract class BaseLiveDataView extends Fragment {
 
         assert getArguments() != null;
         session = (Session)getArguments().get("session");
-        isHistorical= getArguments().getBoolean("historical", false);
+        isHistorical = getArguments().getBoolean("historical", false);
 
         if(!isHistorical) dc = new DataCollector(bluetoothMgr, callback);
         return null;
@@ -93,7 +93,7 @@ public abstract class BaseLiveDataView extends Fragment {
     public abstract void updateStats();
 
     int startIndex = 0;
-    ArrayList<Entry> entries = new ArrayList<>();
+    ArrayList<Entry> lineChartDataPoints = new ArrayList<>();
     public void displayChart(){
         if(isHistorical){
             displayHistoricalChart();
@@ -105,15 +105,15 @@ public abstract class BaseLiveDataView extends Fragment {
         long now = System.currentTimeMillis();
 
         while(now - session.getWeights().get(startIndex).getTimestamp() > timeLimit){
-            entries.remove(0);
+            lineChartDataPoints.remove(0);
             startIndex++;
         }
 
         long startTime = session.getWeights().get(0).getTimestamp();
         TimestampedWeight latest = session.getWeights().get(session.getWeights().size() - 1);
-        entries.add(new Entry((float) (latest.getTimestamp() - startTime) / 1000, latest.getWeight()));
+        lineChartDataPoints.add(new Entry((float) (latest.getTimestamp() - startTime) / 1000, latest.getWeight()));
 
-        lineDataSet = new LineDataSet(entries,null);
+        lineDataSet = new LineDataSet(lineChartDataPoints,null);
         lineDataSet.setCircleRadius(2f);
         lineData = new LineData(lineDataSet);
         //If dark mode set colors of graph numbers and chart line
@@ -131,9 +131,9 @@ public abstract class BaseLiveDataView extends Fragment {
         if(!session.getWeights().isEmpty()) {
             long startTime = session.getWeights().get(0).getTimestamp();
             for (TimestampedWeight weight : session.getWeights()) {
-                entries.add(new Entry((float) (weight.getTimestamp() - startTime) / 1000, weight.getWeight()));
+                lineChartDataPoints.add(new Entry((float) (weight.getTimestamp() - startTime) / 1000, weight.getWeight()));
             }
-            lineDataSet = new LineDataSet(entries, null);
+            lineDataSet = new LineDataSet(lineChartDataPoints, null);
             lineDataSet.setCircleRadius(2f);
             lineData = new LineData(lineDataSet);
             lineChart.setData(lineData);
@@ -223,7 +223,9 @@ public abstract class BaseLiveDataView extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        dc.stopCollecting();
+        if(dc != null){
+            dc.stopCollecting();
+        }
     }
 
 }

@@ -28,8 +28,8 @@ public class DataCollector {
         startScan();
     }
 
-    boolean collectingData = false;
-    boolean bleConnectionMode = true;
+    private boolean collectingData = false;
+    private boolean bleConnectionMode = true;
     //ONLY WH-C06 devices named "IF_B7
     public void startScan(){
         if("IF_B7".equals(deviceName)){
@@ -81,5 +81,8 @@ public class DataCollector {
     public void startCollecting(){
         btManager.startBLEScan(scanCallback);
         collectingData = true;
+    }
+    public boolean isCollectingData() {
+        return collectingData;
     }
 }

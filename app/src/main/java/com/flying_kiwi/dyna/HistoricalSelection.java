@@ -1,6 +1,7 @@
 package com.flying_kiwi.dyna;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,9 @@ public class HistoricalSelection extends Fragment {
         view.findViewById(R.id.btnHistoricalCritical).setOnClickListener(v -> {
             addButtonsToLayout(SessionType.CRITICAL_FORCE);
         });
+        view.findViewById(R.id.btnHistoricalLive).setOnClickListener(v -> {
+            addButtonsToLayout(SessionType.LIVE_DATA);
+        });
     }
 
     public void addButtonsToLayout(SessionType sessionType) {
@@ -79,8 +83,11 @@ public class HistoricalSelection extends Fragment {
                 case CRITICAL_FORCE:
                     navController.navigate(R.id.action_historicalSelection_to_criticalForceLiveData, bundle);
                     break;
+                case LIVE_DATA:
+                    navController.navigate(R.id.action_historicalSelection_to_liveDataView, bundle);
+                    break;
                 default:
-                    // Uhoh
+                    Log.d("Error","Unknown session type");
                     navController.navigate(R.id.historicalSelection, bundle);
             }
         });
