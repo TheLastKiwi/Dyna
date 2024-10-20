@@ -1,7 +1,13 @@
 package com.flying_kiwi.dyna;
 
+import android.util.Log;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Session implements Serializable {
@@ -9,7 +15,7 @@ public class Session implements Serializable {
     private List<TimestampedWeight> weights;
 
     private String name;
-    private float sessionMax = 0;
+    private TimestampedWeight sessionMax;
     private float currentAvg = 0;
     private float weightSum = 0;
     private float CF;
@@ -44,24 +50,30 @@ public class Session implements Serializable {
     private int plotMax;
     private boolean sound;
 
+    private static final long serialVersionUID = 1779590375867446386L; //For deserialization, this was the original id before adding a versioning number for added fields
+    private final int version;
 
     public Session(){
         weights = new ArrayList<>();
+        version = 2;
     }
     public Session(SessionType type) {
         this.sessionType = type;
         weights = new ArrayList<>();
+        version = 2;
     }
 
     public void addWeight(TimestampedWeight timestampedWeight){
         weights.add(timestampedWeight);
-        sessionMax = Math.max(sessionMax, timestampedWeight.getWeight());
+        if(sessionMax == null || sessionMax.getWeight() < timestampedWeight.getWeight()){
+            sessionMax = timestampedWeight;
+        }
         weightSum += timestampedWeight.getWeight();
         currentAvg = weightSum / weights.size();
     }
-    public float getLatest(){
-        if(weights.isEmpty()) return 0;
-        return weights.get(weights.size()-1).getWeight();
+    public TimestampedWeight getLatest(){
+        if(weights.isEmpty()) return new TimestampedWeight(0,false);
+        return weights.get(weights.size()-1);
     }
     public long getSesionLength(){
         return weights.get(weights.size() - 1).getTimestamp() - weights.get(0).getTimestamp();
@@ -79,8 +91,8 @@ public class Session implements Serializable {
         return name;
     }
 
-    public float getSessionMax() {
-        return sessionMax;
+    public TimestampedWeight getSessionMax() {
+        return sessionMax != null ? sessionMax : new TimestampedWeight(0,false);
     }
 
     public float getCurrentAvg() {
@@ -177,7 +189,34 @@ public class Session implements Serializable {
     public void setSessionType(SessionType sessionType) {
         this.sessionType = sessionType;
     }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        try {
+            in.defaultReadObject();
+            switch (version) {
+                case 0:
+                case 1:
+                    //Get max manually
+                    TimestampedWeight max = new TimestampedWeight(0,false);
+                    for(TimestampedWeight tsw : weights){
+                        if(tsw.getWeight()>max.getWeight()){
+                            max = tsw;
+                        }
+                    }
+                    sessionMax = max;
+                case 2:
+                    //Current
+                    break;
+                default:
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            //Ignore
+            Log.d("err",e.toString());
+        }
+    }
 }
+
+
 
 /*
 Peak Load -> No settings

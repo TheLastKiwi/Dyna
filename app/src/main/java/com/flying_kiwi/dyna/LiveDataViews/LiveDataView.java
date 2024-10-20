@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LiveDataView extends BaseLiveDataView {
 
@@ -36,9 +37,9 @@ public class LiveDataView extends BaseLiveDataView {
 
     @Override
     public void updateStats(){
-        ((MaterialTextView)view.findViewById(R.id.txtPeakMax)).setText(String.format("%.2f",session.getSessionMax()));
-        ((MaterialTextView)view.findViewById(R.id.txtAvg)).setText(String.format("%.2f",session.getCurrentAvg()));
-        ((MaterialTextView)view.findViewById(R.id.txtCurrent)).setText(String.format("%.2f",session.getLatest()));
+        ((MaterialTextView)view.findViewById(R.id.txtPeakMax)).setText(session.getSessionMax().toString());
+        ((MaterialTextView)view.findViewById(R.id.txtAvg)).setText(String.format("%.2f %s",session.getCurrentAvg(),session.getLatest().isKg()?"kg":"lb"));
+        ((MaterialTextView)view.findViewById(R.id.txtCurrent)).setText(session.getLatest().toString());
     }
 
     public void initializeButtons() {

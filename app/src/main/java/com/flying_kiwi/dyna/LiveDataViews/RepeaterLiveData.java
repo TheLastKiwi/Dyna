@@ -62,7 +62,7 @@ public class RepeaterLiveData extends BaseLiveDataView {
 
     @Override
     public void updateStats() {
-        ((TextView)view.findViewById(R.id.txtCriticalCurrent)).setText(String.format("%.2f",session.getLatest()));
+        ((TextView)view.findViewById(R.id.txtCriticalCurrent)).setText(session.getLatest().toString());
         ((TextView)view.findViewById(R.id.txtCriticalRepNum)).setText(repNum + "/" + session.getNumReps());
         ((TextView)view.findViewById(R.id.txtRepeaterSetNum)).setText(setNum + "/" + session.getNumSets());
         ((TextView)view.findViewById(R.id.txtCountdown)).setText(String.valueOf(countdownLeft));

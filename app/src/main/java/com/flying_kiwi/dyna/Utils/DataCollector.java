@@ -47,23 +47,29 @@ public class DataCollector {
     }
 
     private final ScanCallback scanCallback = new ScanCallback() {
+        byte[] last = new byte[17];
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             byte[] data = result.getScanRecord().getManufacturerSpecificData(256);
-            Log.d("Data " + collectingData,Arrays.toString(data));
-            if (result.getScanRecord() != null && collectingData) {
 
+
+            if (result.getScanRecord() != null && collectingData) {
+                if(data[9] != last[9]){
+                    Log.d("Data Last " + collectingData,Arrays.toString(last));
+                    Log.d("Data " + collectingData,Arrays.toString(data));
+                }
+                last = data;
                 //byte 10 * 256 + unsigned byte 11 = weight
                 //Byte 9/14 for unit of measurement
                 //kg -> 1,1
                 //lb -> -1 0
-                Log.d("Data","Accepted data");
+//                Log.d("Data","Accepted data");
                 //TODO: Maybe we should divide by 100 here because that's the real data it's reading
                 // And store in reading what unit the scale is outputting so we can display that too
-                TimestampedWeight reading = new TimestampedWeight((cstu(data[10]) * 256 + cstu(data[11]))/100f);
+                TimestampedWeight reading = new TimestampedWeight((cstu(data[10]) * 256 + cstu(data[11]))/100f,data[14]==1);
                 viewCallback.accept(reading);
             } else {
-                Log.d("Data","Tosssing data");
+                Log.d("Data","Tossing data");
             }
         }
     };

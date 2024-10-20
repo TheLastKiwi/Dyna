@@ -76,7 +76,7 @@ public class CriticalForceLiveData extends BaseLiveDataView {
 
     @Override
     public void updateStats() {
-        ((TextView)view.findViewById(R.id.txtCriticalCurrent)).setText(String.valueOf(session.getLatest()));
+        ((TextView)view.findViewById(R.id.txtCriticalCurrent)).setText(session.getLatest().toString());
         ((TextView)view.findViewById(R.id.txtCriticalRepNum)).setText(repNum + "/" + session.getNumReps());
         ((TextView)view.findViewById(R.id.txtCountdown)).setText(String.valueOf(countdownLeft));
         if(isWorking){

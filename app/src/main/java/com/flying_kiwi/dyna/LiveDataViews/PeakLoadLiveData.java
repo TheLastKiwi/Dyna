@@ -38,7 +38,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
 
     @Override
     public void updateStats() {
-        ((TextView)view.findViewById(R.id.txtPeakMax)).setText(String.format("%.2f",session.getSessionMax()));
+        ((TextView)view.findViewById(R.id.txtPeakMax)).setText(session.getSessionMax().toString());
     }
     @Override
     public void displayChart(){
@@ -46,7 +46,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
         // https://mycurvefit.com/
         //TODO: If we modify DataCollector to divide readings by 100 we need to remove division here
         YAxis leftAxis = lineChart.getAxisLeft();
-        double x = session.getSessionMax();
+        double x = session.getSessionMax().getWeight();
         float limit = (float)(4.641323f*Math.pow(x,0.7529087));
         leftAxis.setAxisMaximum(limit);
         leftAxis.setAxisMinimum(0f);
@@ -54,7 +54,7 @@ public class PeakLoadLiveData extends BaseLiveDataView {
         rightAxis.setAxisMinimum(0f);
         rightAxis.setAxisMaximum(limit);
 
-        LimitLine llPlotMax = new LimitLine(session.getSessionMax(), "Max");
+        LimitLine llPlotMax = new LimitLine(session.getSessionMax().getWeight(), "Max");
 
         llPlotMax.setLineWidth(2f);
         llPlotMax.setLineColor(Color.GREEN);
