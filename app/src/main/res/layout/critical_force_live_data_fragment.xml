@@ -57,7 +57,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcvRep"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
@@ -93,17 +93,9 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
->
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcvWeight"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
@@ -141,16 +133,17 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcvCF"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:orientation="horizontal">
 
@@ -158,17 +151,17 @@
                     android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="Critical Force:"
                     android:textSize="36sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txtCF"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="8sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
                     android:text="0"
-                    android:textSize="48sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView17"
                     app:layout_constraintStart_toEndOf="@+id/textView17"
                     app:layout_constraintTop_toTopOf="@+id/textView17"

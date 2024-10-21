@@ -31,10 +31,11 @@ public class CriticalForceLiveData extends BaseLiveDataView {
         lineChart = view.findViewById(R.id.lineChartCritical);
 
         if(isHistorical) {
+            String unit = session.getLatest().isKg()?"kg":"lb";
             view.findViewById(R.id.mcvCF).setVisibility(View.VISIBLE);
-            ((MaterialTextView) view.findViewById(R.id.txtCF)).setText(String.format("%.2f",session.getCF()));
+            ((MaterialTextView) view.findViewById(R.id.txtCF)).setText(String.format("%.2f %s",session.getCF(), unit));
             view.findViewById(R.id.mcvWP).setVisibility(View.VISIBLE);
-            ((MaterialTextView) view.findViewById(R.id.txtWP)).setText(String.format("%.2f",session.getWP()));
+            ((MaterialTextView) view.findViewById(R.id.txtWP)).setText(String.format("%.2f %s s",session.getWP(), unit));
             view.findViewById(R.id.mcvRep).setVisibility(View.GONE);
             view.findViewById(R.id.mcvWeight).setVisibility(View.GONE);
 
@@ -152,8 +153,9 @@ public class CriticalForceLiveData extends BaseLiveDataView {
                 float wp = cfwp[1];
                 session.setCF(critForce);
                 session.setWP(wp);
-                ((MaterialTextView)view.findViewById(R.id.txtCF)).setText(String.format("%.2f", critForce));
-                ((MaterialTextView)view.findViewById(R.id.txtWP)).setText(String.format("%.2f", wp));
+                String unit = session.getLatest().isKg()?"kg":"lb";
+                ((MaterialTextView)view.findViewById(R.id.txtCF)).setText(String.format("%.2f %s", critForce, unit));
+                ((MaterialTextView)view.findViewById(R.id.txtWP)).setText(String.format("%.2f %s s", wp, unit));
                 view.findViewById(R.id.mcvCF).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.mcvWP).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.mcvRep).setVisibility(View.GONE);
