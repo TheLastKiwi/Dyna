@@ -5,54 +5,78 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
 
-<LinearLayout
-    android:id="@+id/llNavigation"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btnLiveData"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Live Data" />
+        <LinearLayout
+            android:id="@+id/llNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnRepeater"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Repeater" />
+            <TextView
+                style="@style/Header"
+                android:layout_width="match_parent"
+                android:text="Dyna"
+                android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/btnPeakLoad"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Peak Load" />
+            <TextView
+                style="@style/Header.2"
+                android:layout_width="match_parent"
+                android:text="Train" />
 
-    <Button
-        android:id="@+id/btnCriticalForce"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Critical Force" />
+            <Button
+                android:id="@+id/btnRepeater"
+                style="@style/MenuButton"
+                android:text="Repeater"
+                app:icon="@drawable/repeater" />
 
-    <Button
-        android:id="@+id/btnHistorical"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="View a session" />
-</LinearLayout>
+            <TextView
+                style="@style/Header.2"
+                android:layout_width="match_parent"
+                android:text="Measure" />
 
-<Button
-    android:id="@+id/btnProfile"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_marginEnd="16dp"
-    android:text="Swap Profile"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/btnPeakLoad"
+                style="@style/MenuButton"
+                android:text="Peak Load"
+                app:icon="@drawable/peak_load" />
+
+            <Button
+                android:id="@+id/btnCriticalForce"
+                style="@style/MenuButton"
+                android:text="Critical Force"
+                app:icon="@drawable/critical_force" />
+
+            <TextView
+                style="@style/Header.2"
+                android:layout_width="match_parent"
+                android:text="Experiment" />
+
+            <Button
+                android:id="@+id/btnLiveData"
+                style="@style/MenuButton"
+                android:text="Live Data"
+                app:icon="@drawable/live_data" />
+
+            <TextView
+                style="@style/Header.2"
+                android:layout_width="match_parent"
+                android:text="Analyze" />
+
+            <Button
+                android:id="@+id/btnHistorical"
+                style="@style/MenuButton"
+                android:text="View a session"
+                app:icon="@drawable/session_review" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

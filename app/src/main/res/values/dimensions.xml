@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="NavigationButtonHeight">51dp</dimen>
+    <dimen name="NavigationButtonMarginVertical">11dp</dimen>
+    <dimen name="NavigationButtonMarginHorizontal">16dp</dimen>
+
+    <dimen name="MenuButtonHeight">96dp</dimen>
+    <dimen name="MenuButtonIconSize">75dp</dimen>
+    <dimen name="MenuButtonCornerRadius">16dp</dimen>
+
+    <dimen name="H1Size">51sp</dimen>
+    <dimen name="H2Size">28sp</dimen>
+    <dimen name="MenuButtonTextSize">24sp</dimen>
+</resources>

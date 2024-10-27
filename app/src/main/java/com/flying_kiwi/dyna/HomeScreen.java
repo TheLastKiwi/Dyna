@@ -14,6 +14,7 @@ import com.flying_kiwi.dyna.Utils.FileManager;
 public class HomeScreen extends Fragment {
     FileManager fm;
     View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
@@ -43,9 +44,6 @@ public class HomeScreen extends Fragment {
         view.findViewById(R.id.btnHistorical).setOnClickListener(view -> {
             navController.navigate(R.id.action_homeScreen_to_historicalSelection);
         });
-        view.findViewById(R.id.btnProfile).setOnClickListener(view -> {
-            navController.navigate(R.id.action_homeScreen_to_swapProfile);
-        });
         view.findViewById(R.id.btnCriticalForce).setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             Session session = new Session(SessionType.CRITICAL_FORCE);
@@ -58,5 +56,19 @@ public class HomeScreen extends Fragment {
             navController.navigate(R.id.action_homeScreen_to_criticalForceLiveData, bundle);
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ((MainActivity) requireActivity()).setBackButtonVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (!isVisible()) ((MainActivity) requireActivity()).setBackButtonVisibility(View.VISIBLE);
     }
 }

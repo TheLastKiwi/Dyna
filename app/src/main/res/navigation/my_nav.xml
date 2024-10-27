@@ -9,9 +9,6 @@
         android:name="com.flying_kiwi.dyna.HomeScreen"
         android:label="HomeScreen" >
         <action
-            android:id="@+id/action_homeScreen_to_swapProfile"
-            app:destination="@id/swapProfile" />
-        <action
             android:id="@+id/action_homeScreen_to_repeatersSettings"
             app:destination="@id/repeatersSettings" />
         <action

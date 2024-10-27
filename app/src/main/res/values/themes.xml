@@ -2,18 +2,55 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Dyna" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="materialCardViewStyle">@style/MaterialCardViewStyle</item>
+        <item name="colorPrimary">@color/muted_green</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
-    <style name="MaterialCardViewStyle">
-        <item name="cardCornerRadius">8dp</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="cardElevation">4dp</item>
-        <item name="cardBackgroundColor">@color/muted_green</item>
+
+    <style name="NavigationButton" parent="Widget.Material3.Button">
+        <item name="android:layout_height">@dimen/NavigationButtonHeight</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/NavigationButtonMarginVertical</item>
     </style>
+    <style name="NavigationButton.Left">
+        <item name="android:layout_marginStart">@dimen/NavigationButtonMarginHorizontal</item>
+        <item name="iconGravity">start</item>
+    </style>
+    <style name="NavigationButton.Right">
+        <item name="android:layout_marginEnd">@dimen/NavigationButtonMarginHorizontal</item>
+        <item name="iconGravity">end</item>
+    </style>
+
+    <style name="MenuButton" parent="Widget.Material3.Button">
+        <item name="android:layout_height">@dimen/MenuButtonHeight</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="cornerRadius">@dimen/MenuButtonCornerRadius</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:layout_marginBottom">11dp</item>
+        <item name="android:paddingLeft">@dimen/MenuButtonCornerRadius</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:gravity">center</item>
+        <item name="iconGravity">end</item>
+        <item name="iconSize">@dimen/MenuButtonIconSize</item>
+        <item name="android:textSize">@dimen/MenuButtonTextSize</item>
+    </style>
+
+    <style name="Header" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textSize">@dimen/H1Size</item>
+        <item name="android:textColor">@color/muted_green</item>
+    </style>
+
+    <style name="Header.2">
+        <item name="android:textSize">@dimen/H2Size</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">@dimen/MenuButtonCornerRadius</item>
+    </style>
+
     <style name="LineChartStyle">
         <!--Can I do anything here? Probably not-->
     </style>

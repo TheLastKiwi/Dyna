@@ -7,21 +7,18 @@
 
     <Button
         android:id="@+id/btnTempBack"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="11dp"
+        style="@style/NavigationButton.Left"
         android:text="Back"
+        android:visibility="invisible"
+        app:icon="@drawable/arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnTmpProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="16dp"
+        android:id="@+id/btnProfile"
+        style="@style/NavigationButton.Right"
         android:text="ProfileName"
+        app:icon="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +31,8 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnTempBack"
+        app:layout_constraintVertical_bias="1.0"
         app:navGraph="@navigation/my_nav"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="-16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

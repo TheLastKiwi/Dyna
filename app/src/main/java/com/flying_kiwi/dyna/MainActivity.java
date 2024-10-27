@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         NavController navController = navHostFragment.getNavController();
+        if(navController.getCurrentDestination().getId() != R.id.homeScreen) {
+            setBackButtonVisibility(TextView.VISIBLE);
+        }
 
         findViewById(R.id.btnTempBack).setOnClickListener(v ->{
             if(navController.getCurrentDestination().getId() != R.id.homeScreen){
@@ -38,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        findViewById(R.id.btnTmpProfile).setOnClickListener(v -> {
-
+        findViewById(R.id.btnProfile).setOnClickListener(view -> {
+            navController.navigate(R.id.swapProfile);
         });
 
         SharedPreferences settings = getSharedPreferences("Settings", Context.MODE_PRIVATE);
@@ -54,9 +57,13 @@ public class MainActivity extends AppCompatActivity {
         }
         Profile activeProfile = fm.getProfile(activeUser);
 
-        ((TextView)findViewById(R.id.btnTmpProfile)).setText(activeProfile.getDisplayName());
+        ((TextView)findViewById(R.id.btnProfile)).setText(activeProfile.getDisplayName());
 
         checkAndRequestPermissions();
+    }
+
+    public void setBackButtonVisibility(int visibility) {
+        findViewById(R.id.btnTempBack).setVisibility(visibility);
     }
 
     private void checkAndRequestPermissions() {
